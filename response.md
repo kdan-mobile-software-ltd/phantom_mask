@@ -1,13 +1,20 @@
 # Response
-## API Document (required)
-  Import [this](#api-document-required) json file to Postman
+  Current contest as an example. Feel free to edit/remove it.
 
-## Import Data Commands (required)
-  * `rake import:pharmacy[PATH_TO_FILE]`
-  * `rake import:user[PATH_TO_FILE]`
+## Required
+### API Document
+  Import [this](#api-document) json file to Postman
 
-## Test Coverage Report(optional)
-  check report [here](#test-coverage-reportoptional)
-  
-## Demo Site Url (optional)
-  demo ready on [heroku](#demo-site-url-optional)
+### Import Data Commands
+  `rake import_data:book_store[PATH_TO_FILE]`
+  `rake import_data:user[PATH_TO_FILE]`
+
+## Bonus
+### Test Coverage Report
+  check report [here](#test-coverage-report)
+
+### Dockerized
+  check my dockerfile [here](#dockerized)
+
+### Demo Site Url
+  demo site is ready on [heroku](#demo-site-url)
