@@ -24,4 +24,14 @@ class Products extends Model
     {
         return $this->belongsTo(Masks::class, 'mask_id');
     }
+
+    public function scopeByMask($query, $name, $color)
+    {
+        return $query->where('mask_id', function ($sub) use ($name, $color) {
+            return $sub->select('id')
+                ->from('masks')
+                ->where('name', $name)
+                ->where('color', $color);
+        });
+    }
 }

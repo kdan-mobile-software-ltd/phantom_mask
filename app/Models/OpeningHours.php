@@ -6,13 +6,13 @@ use Illuminate\Database\Eloquent\Model;
 
 class OpeningHours extends Model
 {
-    const MON = 'mon';
-    const TUE = 'tue';
-    const WED = 'wed';
-    const THU = 'thu';
-    const FRI = 'fri';
-    const SAT = 'sat';
-    const SUN = 'sun';
+    const MON = 'Mon';
+    const TUE = 'Tue';
+    const WED = 'Wed';
+    const THU = 'Thu';
+    const FRI = 'Fri';
+    const SAT = 'Sat';
+    const SUN = 'Sun';
 
     protected $table = 'opening_hours';
 
