@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pharmacies;
+use App\Models\Products;
 use App\Models\PurchaseHistories;
 use App\Models\Users;
 use App\Validators\UserValidator;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
@@ -55,6 +60,59 @@ class UserController extends Controller
             ->join('masks', 'masks.id', '=', 'products.mask_id')
             ->whereBetween('transaction_date', [$startAt, $endAt])
             ->groupBy('masks.id')
+            ->get()
+            ->toArray();
+
+        return [
+            'data' => $query,
+        ];
+    }
+
+    /**
+     * Process a user purchases a mask from a pharmacy, and handle all relevant data changes in an atomic transaction
+     *
+     * @return void
+     */
+    public function purchaseMasks(Request $request)
+    {
+        UserValidator::checkPurchaseMasks($request->all());
+
+        $userId    = $request->get('userId');
+        $productId = $request->get('productId');
+
+        try {
+            $user     = Users::find($userId);
+            $product  = Products::find($productId);
+            $pharmacy = Pharmacies::find($product->pharmacy_id);
+
+            DB::beginTransaction();
+            // 消費紀錄
+            $record                     = new PurchaseHistories();
+            $record->user_id            = $userId;
+            $record->transaction_amount = $product->price;
+            $record->transaction_date   = Carbon::now()->toDateTimeString();
+            $record->pharmacy_id        = $product->pharmacy_id;
+            $record->product_id         = $productId;
+            $record->save();
+
+            // 收支平衡
+            $user->decrement('cash_balance', $product->price);
+            $pharmacy->increment('cash_balance', $product->price);
+            DB::commit();
+        } catch (Exception $th) {
+            DB::rollback();
+            throw new Exception('purchase mask(s) failed');
+        }
+    }
+
+    /**
+     * get all user id and name
+     *
+     * @return json
+     */
+    public function getUsers()
+    {
+        $query = Users::select(['id', 'name'])
             ->get()
             ->toArray();
 

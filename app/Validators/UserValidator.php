@@ -19,4 +19,18 @@ class UserValidator extends BaseValidator
             ],
         ]))->check();
     }
+
+    public static function checkPurchaseMasks($data)
+    {
+        (new static($data, [
+            'userId' => [
+                'required',
+                'integer',
+            ],
+            'productId' => [
+                'required',
+                'integer',
+            ],
+        ]))->check();
+    }
 }

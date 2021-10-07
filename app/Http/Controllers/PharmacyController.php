@@ -158,4 +158,32 @@ class PharmacyController extends Controller
             'data' => $query,
         ];
     }
+
+    /**
+     * get products id and name
+     *
+     * @return json
+     */
+    public function getProducts(Request $request)
+    {
+        $pharmacyId = $request->get('pharmacyId') ?? 0;
+
+        $query = Products::select([
+            'products.id',
+            'products.price',
+            'masks.name',
+            'masks.color',
+        ])
+            ->join('masks', 'masks.id', '=', 'products.mask_id');
+
+        if ($pharmacyId) {
+            $query->where('pharmacy_id', $pharmacyId);
+        }
+
+        $query = $query->get()->toArray();
+
+        return [
+            'data' => $query,
+        ];
+    }
 }
