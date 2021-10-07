@@ -24,6 +24,8 @@ Route::prefix('/pharmacy')->group(function () {
     Route::post('/list/masks', "PharmacyController@getMasksByPharmacy");
 
     Route::post('/list/price', "PharmacyController@getPharmaciesByPrice");
+
+    Route::get('/search', "PharmacyController@searchByName");
 });
 
 Route::prefix('/user')->group(function () {

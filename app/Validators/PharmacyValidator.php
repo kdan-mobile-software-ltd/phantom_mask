@@ -27,7 +27,7 @@ class PharmacyValidator extends BaseValidator
                 'required',
                 'integer',
             ],
-            'sorts' => [
+            'sorts'      => [
                 'nullable',
             ],
         ]))->check();
@@ -45,6 +45,18 @@ class PharmacyValidator extends BaseValidator
                 'required',
                 'numeric',
                 'max:9999999',
+            ],
+        ]))->check();
+    }
+
+    public static function checkSearch($data)
+    {
+        (new static($data, [
+            'keyword' => [
+                'required',
+                'string',
+                'min:4',
+                'max:100',
             ],
         ]))->check();
     }

@@ -7,6 +7,7 @@ use App\Models\Products;
 use App\Validators\PharmacyValidator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class PharmacyController extends Controller
 {
@@ -128,6 +129,30 @@ class PharmacyController extends Controller
             }])
             ->get()
             ->toArray();
+
+        return [
+            'data' => $query,
+        ];
+    }
+
+    /**
+     * Search for pharmacies or masks by name, ranked by relevance to search term
+     *
+     * @return json
+     */
+    public function searchByName(Request $request)
+    {
+        PharmacyValidator::checkSearch($request->all());
+
+        $keyword = $request->get('keyword');
+        $keyword = trim($keyword);
+        $keyword = str_replace(' ', '* ', $keyword) . '*';
+
+        $sql = "SELECT `t1`.*
+            FROM ( SELECT `name`, NULL AS `color`, MATCH(`name`) AGAINST('{$keyword}' IN BOOLEAN MODE) AS `score` FROM `pharmacies` UNION SELECT `name`, `color`, MATCH(`name`) AGAINST('{$keyword}' IN BOOLEAN MODE) AS `score` FROM `masks` ) AS `t1`
+            WHERE `t1`.`score` > 0.001
+            ORDER BY `t1`.`score` DESC";
+        $query = DB::select($sql);
 
         return [
             'data' => $query,
