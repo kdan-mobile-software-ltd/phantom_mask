@@ -17,8 +17,6 @@ class OpeningHours extends Model
     protected $table = 'opening_hours';
 
     protected $casts = [
-        'start_at'   => 'datetime:H:i',
-        'end_at'     => 'datetime:H:i',
         'created_at' => 'datetime:Y-m-d H:i:s',
         'updated_at' => 'datetime:Y-m-d H:i:s',
     ];
