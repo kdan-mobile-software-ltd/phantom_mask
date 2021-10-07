@@ -22,8 +22,8 @@ class UserController extends Controller
         $endAt   = $request->get('endAt');
 
         $query = PurchaseHistories::selectRaw("
-                'purchase_histories.user_id',
-                'users.name',
+                purchase_histories.user_id,
+                users.name,
                 SUM(purchase_histories.transaction_amount) AS total
                 ")
             ->join('users', 'users.id', '=', 'purchase_histories.user_id')
