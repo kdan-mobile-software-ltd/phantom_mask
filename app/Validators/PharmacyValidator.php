@@ -19,4 +19,17 @@ class PharmacyValidator extends BaseValidator
             ],
         ]))->check();
     }
+
+    public static function checkByPharmacy($data)
+    {
+        (new static($data, [
+            'pharmacyId' => [
+                'required',
+                'integer',
+            ],
+            'sorts' => [
+                'nullable',
+            ],
+        ]))->check();
+    }
 }

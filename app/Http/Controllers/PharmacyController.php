@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pharmacies;
+use App\Models\Products;
 use App\Validators\PharmacyValidator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -45,6 +46,55 @@ class PharmacyController extends Controller
             ->with(['openingHours' => function ($sub) {
                 return $sub->select(['pharmacy_id', 'week_day', 'start_at', 'end_at']);
             }])
+            ->get()
+            ->toArray();
+
+        return [
+            'data' => $query,
+        ];
+    }
+
+    /**
+     * List all masks that are sold by a given pharmacy, sorted by mask name or mask price
+     *
+     * @return json
+     */
+    public function getMasksByPharmacy(Request $request)
+    {
+        PharmacyValidator::checkByPharmacy($request->all());
+
+        $pharmacyId = $request->get('pharmacyId');
+        $sorts      = $request->get('sorts') ?? ['name,asc'];
+
+        $query = Products::select([
+            'masks.name',
+            'products.unit',
+            'products.price',
+        ])
+            ->where('products.pharmacy_id', $pharmacyId)
+            ->join('masks', 'masks.id', '=', 'products.mask_id');
+
+        foreach ($sorts as $sort) {
+            list($column, $val) = explode(',', $sort);
+            $query->orderBy("masks.{$column}", $val);
+        }
+
+        $query = $query->get()
+            ->toArray();
+
+        return [
+            'data' => $query,
+        ];
+    }
+
+    /**
+     * get all pharmacies id and name
+     *
+     * @return json
+     */
+    public function getPharmacies()
+    {
+        $query = Pharmacies::select(['id', 'name'])
             ->get()
             ->toArray();
 

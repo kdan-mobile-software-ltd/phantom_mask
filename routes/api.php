@@ -18,5 +18,8 @@ use Illuminate\Http\Request;
 // });
 
 Route::prefix('/pharmacy')->group(function () {
-    Route::get('/list/period', "PharmacyController@getPharmaciesByPeriod");
+    Route::post('/list/period', "PharmacyController@getPharmaciesByPeriod");
+
+    Route::get('/list', "PharmacyController@getPharmacies");
+    Route::post('/list/masks', "PharmacyController@getMasksByPharmacy");
 });
