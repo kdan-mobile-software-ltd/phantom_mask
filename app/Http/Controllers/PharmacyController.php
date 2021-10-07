@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Pharmacies;
+use App\Validators\PharmacyValidator;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 
@@ -15,10 +16,10 @@ class PharmacyController extends Controller
      */
     public function getPharmaciesByPeriod(Request $request)
     {
-        // 需要驗證資料格式
+        PharmacyValidator::checkByPeriod($request->all());
+
         $date = $request->get('date') ?? 0;
         $time = $request->get('time');
-        $time = "{$time}:00";
 
         // 轉換日期為星期
         if ($date) {
