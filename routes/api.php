@@ -25,3 +25,7 @@ Route::prefix('/pharmacy')->group(function () {
 
     Route::post('/list/price', "PharmacyController@getPharmaciesByPrice");
 });
+
+Route::prefix('/user')->group(function () {
+    Route::post('/list/period', "UserController@getUsersByPeriod");
+});
