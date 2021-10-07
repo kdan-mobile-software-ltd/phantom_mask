@@ -28,4 +28,6 @@ Route::prefix('/pharmacy')->group(function () {
 
 Route::prefix('/user')->group(function () {
     Route::post('/list/period', "UserController@getUsersByPeriod");
+
+    Route::post('/list/transactions', "UserController@getTransactionsByPeriod");
 });
