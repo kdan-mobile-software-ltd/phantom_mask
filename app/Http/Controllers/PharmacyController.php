@@ -102,4 +102,35 @@ class PharmacyController extends Controller
             'data' => $query,
         ];
     }
+
+    /**
+     * List all pharmacies that have more or less than x mask products within a price range
+     *
+     * @return json
+     */
+    public function getPharmaciesByPrice(Request $request)
+    {
+        PharmacyValidator::checkByPrice($request->all());
+
+        $min = $request->get('min');
+        $max = $request->get('max');
+
+        $query = Pharmacies::select(['id', 'name'])
+            ->whereIn('id', function ($sub) use ($min, $max) {
+                return $sub->select('pharmacy_id')
+                    ->from('products')
+                    ->whereBetween('price', [$min, $max]);
+            })
+            ->with(['products' => function ($sub) use ($min, $max) {
+                // counting x mask products
+                return $sub->select(['id', 'pharmacy_id'])
+                    ->whereBetween('price', [$min, $max]);
+            }])
+            ->get()
+            ->toArray();
+
+        return [
+            'data' => $query,
+        ];
+    }
 }

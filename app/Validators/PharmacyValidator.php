@@ -32,4 +32,20 @@ class PharmacyValidator extends BaseValidator
             ],
         ]))->check();
     }
+
+    public static function checkByPrice($data)
+    {
+        (new static($data, [
+            'min' => [
+                'required',
+                'numeric',
+                'min:0.01',
+            ],
+            'max' => [
+                'required',
+                'numeric',
+                'max:9999999',
+            ],
+        ]))->check();
+    }
 }
