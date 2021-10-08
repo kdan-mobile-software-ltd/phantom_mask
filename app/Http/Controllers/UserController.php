@@ -85,6 +85,10 @@ class UserController extends Controller
             $product  = Products::find($productId);
             $pharmacy = Pharmacies::find($product->pharmacy_id);
 
+            if (($user->cash_balance - $product->price) < 0) {
+                throw new Exception('餘額不足');
+            }
+
             DB::beginTransaction();
             // 消費紀錄
             $record                     = new PurchaseHistories();
