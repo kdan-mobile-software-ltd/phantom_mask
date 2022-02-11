@@ -1,469 +1,521 @@
 [
   {
-    "name": "Better You",
-    "cashBalance": 777.61,
-    "openingHours": "Mon, Wed 12:56 - 21:58 / Tue 13:06 - 22:42 / Fri - Sat 17:09 - 20:20 / Sun 07:10 - 09:33",
+    "name": "DFW Wellness",
+    "cashBalance": 328.41,
+    "openingHours": "Mon, Wed, Fri 08:00 - 12:00 / Tue, Thur 14:00 - 18:00",
     "masks": [
       {
-        "name": "AniMask (blue) (10 per pack)",
-        "price": 33.65
+        "name": "True Barrier (green) (3 per pack)",
+        "price": 13.7
+      },
+      {
+        "name": "MaskT (green) (10 per pack)",
+        "price": 41.86
+      },
+      {
+        "name": "Second Smile (black) (10 per pack)",
+        "price": 31.98
+      },
+      {
+        "name": "Second Smile (black) (3 per pack)",
+        "price": 5.84
+      },
+      {
+        "name": "Masquerade (green) (3 per pack)",
+        "price": 9.4
       }
     ]
   },
   {
-    "name": "Cash Saver Pharmacy",
-    "cashBalance": 596.94,
-    "openingHours": "Mon 11:00 - 14:48 / Tue, Fri 00:05 - 07:20 / Sat - Sun 09:01 - 12:43",
+    "name": "Carepoint",
+    "cashBalance": 593.35,
+    "openingHours": "Mon - Fri 08:00 - 17:00",
     "masks": [
-      {
-        "name": "MaskT (black) (10 per pack)",
-        "price": 14.9
-      },
-      {
-        "name": "Free to Roam (black) (3 per pack)",
-        "price": 13.83
-      },
-      {
-        "name": "AniMask (green) (10 per pack)",
-        "price": 49.21
-      },
       {
         "name": "Masquerade (blue) (6 per pack)",
-        "price": 16.75
+        "price": 7.05
       }
     ]
   },
   {
-    "name": "PrecisionMed",
-    "cashBalance": 181.84,
-    "openingHours": "Tue 14:10 - 16:25 / Wed 16:57 - 21:46 / Thu 16:30 - 19:40 / Fri 02:55 - 16:49 / Sun 10:59 - 05:33",
+    "name": "First Care Rx",
+    "cashBalance": 222.52,
+    "openingHours": "Mon - Fri 08:00 - 17:00",
     "masks": [
       {
         "name": "Second Smile (blue) (10 per pack)",
-        "price": 39.98
-      },
-      {
-        "name": "Free to Roam (green) (3 per pack)",
-        "price": 8.83
-      },
-      {
-        "name": "AniMask (black) (3 per pack)",
-        "price": 12.81
-      },
-      {
-        "name": "Masquerade (black) (3 per pack)",
-        "price": 8.17
-      },
-      {
-        "name": "MaskT (blue) (3 per pack)",
-        "price": 7.04
-      }
-    ]
-  },
-  {
-    "name": "MedSavvy",
-    "cashBalance": 903.57,
-    "openingHours": "Tue 10:08 - 23:13 / Wed 12:38 - 21:48 / Thu 12:14 - 22:48 / Fri - Sat 15:01 - 21:24 / Sun 00:03 - 07:58",
-    "masks": [
-      {
-        "name": "Masquerade (black) (10 per pack)",
-        "price": 19.54
-      },
-      {
-        "name": "Free to Roam (blue) (10 per pack)",
-        "price": 30.74
-      },
-      {
-        "name": "Free to Roam (black) (10 per pack)",
-        "price": 26.54
-      },
-      {
-        "name": "AniMask (blue) (6 per pack)",
-        "price": 28.72
-      },
-      {
-        "name": "MaskT (black) (3 per pack)",
-        "price": 4.14
-      },
-      {
-        "name": "Second Smile (green) (3 per pack)",
-        "price": 6.55
-      }
-    ]
-  },
-  {
-    "name": "Pill Pack",
-    "cashBalance": 905.44,
-    "openingHours": "Mon 07:14 - 17:06 / Tue 16:47 - 19:25 / Wed 15:30 - 19:00 / Sat 04:35 - 06:35 / Sun 01:39 - 16:59",
-    "masks": [
-      {
-        "name": "Masquerade (black) (3 per pack)",
-        "price": 3.76
-      },
-      {
-        "name": "Free to Roam (blue) (3 per pack)",
-        "price": 7.89
-      },
-      {
-        "name": "MaskT (green) (10 per pack)",
-        "price": 32.57
-      },
-      {
-        "name": "AniMask (green) (10 per pack)",
-        "price": 22.01
-      },
-      {
-        "name": "Masquerade (green) (10 per pack)",
-        "price": 42.27
-      },
-      {
-        "name": "AniMask (black) (6 per pack)",
-        "price": 14.16
-      }
-    ]
-  },
-  {
-    "name": "Heartland Pharmacy",
-    "cashBalance": 858.91,
-    "openingHours": "Mon 13:18 - 17:49 / Tue 05:06 - 17:45 / Wed - Thu 03:25 - 11:25 / Sat 04:10 - 08:03 / Sun 15:07 - 18:50",
-    "masks": [
-      {
-        "name": "MaskT (green) (6 per pack)",
-        "price": 29.91
+        "price": 49.83
       },
       {
         "name": "Second Smile (green) (6 per pack)",
-        "price": 11.89
+        "price": 27.69
+      },
+      {
+        "name": "Second Smile (blue) (6 per pack)",
+        "price": 11.07
+      },
+      {
+        "name": "Masquerade (black) (10 per pack)",
+        "price": 19.95
+      },
+      {
+        "name": "Masquerade (green) (10 per pack)",
+        "price": 37.3
+      },
+      {
+        "name": "Masquerade (black) (3 per pack)",
+        "price": 12.0
+      },
+      {
+        "name": "MaskT (black) (10 per pack)",
+        "price": 44.4
       },
       {
         "name": "MaskT (green) (10 per pack)",
-        "price": 35.06
+        "price": 37.87
       },
       {
-        "name": "Free to Roam (black) (3 per pack)",
-        "price": 5.31
+        "name": "Second Smile (black) (3 per pack)",
+        "price": 14.96
       }
     ]
   },
   {
-    "name": "Longhorn Pharmacy",
-    "cashBalance": 323.3,
-    "openingHours": "Mon, Wed 10:53 - 16:49 / Tue 17:41 - 21:42 / Thu 08:25 - 00:30 / Sun 15:53 - 02:05",
+    "name": "Welltrack",
+    "cashBalance": 507.29,
+    "openingHours": "Mon - Fri 08:00 - 17:00 / Sat, Sun 08:00 - 12:00",
     "masks": [
       {
-        "name": "AniMask (green) (10 per pack)",
-        "price": 10.83
+        "name": "Second Smile (blue) (6 per pack)",
+        "price": 8.66
       },
       {
-        "name": "AniMask (black) (3 per pack)",
-        "price": 8.94
+        "name": "True Barrier (green) (10 per pack)",
+        "price": 20.58
       },
       {
         "name": "Masquerade (blue) (6 per pack)",
-        "price": 20.0
+        "price": 21.87
+      },
+      {
+        "name": "MaskT (green) (10 per pack)",
+        "price": 48.76
+      },
+      {
+        "name": "Cotton Kiss (black) (10 per pack)",
+        "price": 16.31
       },
       {
         "name": "Masquerade (blue) (10 per pack)",
-        "price": 21.67
-      },
-      {
-        "name": "Second Smile (blue) (3 per pack)",
-        "price": 7.32
+        "price": 24.89
       }
     ]
   },
   {
-    "name": "PharmaMed",
-    "cashBalance": 238.89,
-    "openingHours": "Mon, Sat 03:27 - 09:16 / Tue 14:41 - 19:40 / Wed 04:05 - 16:06 / Thu 09:49 - 17:25 / Fri 08:05 - 19:48",
+    "name": "Prescription Hope",
+    "cashBalance": 189.42,
+    "openingHours": "Mon - Fri 08:00 - 17:00",
     "masks": [
       {
-        "name": "MaskT (black) (6 per pack)",
-        "price": 13.41
+        "name": "Cotton Kiss (green) (10 per pack)",
+        "price": 46.07
+      },
+      {
+        "name": "Cotton Kiss (black) (3 per pack)",
+        "price": 5.13
       }
     ]
   },
   {
-    "name": "Neighbors",
-    "cashBalance": 151.65,
-    "openingHours": "Mon 10:09 - 02:26 / Wed 15:26 - 17:33 / Thu 15:31 - 17:46 / Sat 13:14 - 20:24 / Sun 00:02 - 16:40",
+    "name": "Health Mart",
+    "cashBalance": 906.97,
+    "openingHours": "Mon - Fri 08:00 - 17:00 / Sat, Sun 08:00 - 12:00",
     "masks": [
       {
-        "name": "Masquerade (black) (3 per pack)",
-        "price": 10.28
-      },
-      {
-        "name": "Free to Roam (green) (3 per pack)",
-        "price": 14.18
-      },
-      {
-        "name": "MaskT (green) (10 per pack)",
-        "price": 47.83
+        "name": "Cotton Kiss (blue) (3 per pack)",
+        "price": 7.1
       }
     ]
   },
   {
-    "name": "Discount Drugs",
-    "cashBalance": 753.18,
-    "openingHours": "Wed 05:16 - 09:37 / Thu 14:04 - 23:19 / Fri - Sat 00:27 - 04:08 / Sun 03:04 - 06:25",
+    "name": "Health Warehouse",
+    "cashBalance": 841.72,
+    "openingHours": "Mon - Fri 08:00 - 17:00 / Sat, Sun 08:00 - 12:00",
     "masks": [
       {
-        "name": "Free to Roam (blue) (10 per pack)",
-        "price": 38.41
+        "name": "Second Smile (green) (10 per pack)",
+        "price": 43.51
+      },
+      {
+        "name": "MaskT (black) (10 per pack)",
+        "price": 15.71
+      }
+    ]
+  },
+  {
+    "name": "First Pharmacy",
+    "cashBalance": 543.44,
+    "openingHours": "Fri - Sun 20:00 - 02:00",
+    "masks": [
+      {
+        "name": "True Barrier (black) (10 per pack)",
+        "price": 46.13
+      },
+      {
+        "name": "Cotton Kiss (blue) (6 per pack)",
+        "price": 15.11
+      },
+      {
+        "name": "MaskT (black) (3 per pack)",
+        "price": 13.98
+      },
+      {
+        "name": "Second Smile (green) (3 per pack)",
+        "price": 11.96
+      },
+      {
+        "name": "Cotton Kiss (green) (10 per pack)",
+        "price": 16.02
+      },
+      {
+        "name": "MaskT (green) (6 per pack)",
+        "price": 21.52
+      }
+    ]
+  },
+  {
+    "name": "Centrico",
+    "cashBalance": 277.94,
+    "openingHours": "Mon, Wed, Fri 08:00 - 12:00 / Tue, Thur 14:00 - 18:00",
+    "masks": [
+      {
+        "name": "Cotton Kiss (green) (3 per pack)",
+        "price": 6.46
+      },
+      {
+        "name": "MaskT (green) (6 per pack)",
+        "price": 7.28
+      },
+      {
+        "name": "True Barrier (green) (3 per pack)",
+        "price": 6.5
       },
       {
         "name": "MaskT (blue) (6 per pack)",
-        "price": 27.91
+        "price": 28.29
       },
       {
-        "name": "Free to Roam (black) (6 per pack)",
-        "price": 28.54
+        "name": "Cotton Kiss (black) (3 per pack)",
+        "price": 7.94
+      },
+      {
+        "name": "Masquerade (black) (6 per pack)",
+        "price": 6.27
+      },
+      {
+        "name": "True Barrier (blue) (6 per pack)",
+        "price": 21.94
+      },
+      {
+        "name": "Masquerade (green) (10 per pack)",
+        "price": 20.1
+      }
+    ]
+  },
+  {
+    "name": "Below Drug",
+    "cashBalance": 909.82,
+    "openingHours": "Mon, Wed, Fri 08:00 - 12:00 / Tue, Thur 14:00 - 18:00",
+    "masks": [
+      {
+        "name": "Masquerade (green) (6 per pack)",
+        "price": 27.59
+      },
+      {
+        "name": "Masquerade (black) (6 per pack)",
+        "price": 12.05
+      },
+      {
+        "name": "Masquerade (green) (10 per pack)",
+        "price": 33.11
       },
       {
         "name": "Masquerade (blue) (6 per pack)",
-        "price": 28.02
+        "price": 12.9
+      },
+      {
+        "name": "True Barrier (blue) (3 per pack)",
+        "price": 5.08
+      },
+      {
+        "name": "MaskT (black) (6 per pack)",
+        "price": 22.68
+      },
+      {
+        "name": "Masquerade (black) (3 per pack)",
+        "price": 6.59
       }
     ]
   },
   {
     "name": "Medlife",
-    "cashBalance": 467.39,
-    "openingHours": "Wed 16:49 - 20:32 / Thu 15:57 - 09:13 / Fri - Sat 13:36 - 20:51 / Sun 02:42 - 19:44",
+    "cashBalance": 276.31,
+    "openingHours": "Mon - Fri 08:00 - 17:00 / Sat, Sun 08:00 - 12:00",
     "masks": [
       {
         "name": "Second Smile (black) (3 per pack)",
-        "price": 5.06
+        "price": 9.56
       },
       {
-        "name": "Second Smile (blue) (3 per pack)",
-        "price": 12.51
+        "name": "True Barrier (green) (6 per pack)",
+        "price": 15.6
       },
       {
-        "name": "Free to Roam (black) (3 per pack)",
-        "price": 10.81
+        "name": "True Barrier (green) (10 per pack)",
+        "price": 36.73
       },
       {
-        "name": "Second Smile (black) (6 per pack)",
-        "price": 23.73
+        "name": "True Barrier (blue) (3 per pack)",
+        "price": 6.66
       },
       {
-        "name": "MaskT (black) (10 per pack)",
-        "price": 43.94
+        "name": "Cotton Kiss (black) (3 per pack)",
+        "price": 10.19
       },
       {
-        "name": "MaskT (black) (3 per pack)",
-        "price": 10.13
+        "name": "Second Smile (green) (3 per pack)",
+        "price": 14.7
       }
     ]
   },
   {
-    "name": "Pride Pharmacy",
-    "cashBalance": 896.75,
-    "openingHours": "Mon 07:50 - 14:53 / Thu - Fri 00:53 - 07:57 / Sat 12:20 - 17:45 / Sun 15:50 - 10:49",
+    "name": "PharmaMed",
+    "cashBalance": 448.88,
+    "openingHours": "Mon - Wed 08:00 - 17:00 / Thur, Sat 20:00 - 02:00",
     "masks": [
       {
-        "name": "Free to Roam (blue) (3 per pack)",
-        "price": 5.61
-      },
-      {
-        "name": "MaskT (black) (10 per pack)",
-        "price": 46.51
-      },
-      {
-        "name": "Second Smile (black) (3 per pack)",
-        "price": 9.59
-      },
-      {
-        "name": "Masquerade (blue) (3 per pack)",
-        "price": 6.26
-      },
-      {
-        "name": "AniMask (blue) (10 per pack)",
-        "price": 11.47
+        "name": "MaskT (green) (10 per pack)",
+        "price": 17.81
       }
     ]
   },
   {
-    "name": "Atlas Drugs",
-    "cashBalance": 785.02,
-    "openingHours": "Mon 16:30 - 23:07 / Wed 10:16 - 16:48 / Fri 16:20 - 20:39 / Sat 00:17 - 12:55 / Sun 05:33 - 23:59",
+    "name": "Foundation Care",
+    "cashBalance": 566.91,
+    "openingHours": "Mon - Wed 08:00 - 17:00 / Thur, Sat 20:00 - 02:00",
     "masks": [
       {
-        "name": "Second Smile (green) (6 per pack)",
-        "price": 6.82
-      },
-      {
-        "name": "MaskT (green) (6 per pack)",
-        "price": 25.73
-      },
-      {
-        "name": "MaskT (black) (6 per pack)",
-        "price": 9.7
+        "name": "Masquerade (green) (10 per pack)",
+        "price": 29.66
       }
     ]
   },
   {
-    "name": "Thrifty Way Pharmacy",
-    "cashBalance": 220.73,
-    "openingHours": "Mon, Fri 04:02 - 15:08 / Tue 09:57 - 18:23 / Wed 12:10 - 00:10 / Sat 12:21 - 21:32",
+    "name": "Keystone Pharmacy",
+    "cashBalance": 962.91,
+    "openingHours": "Mon - Wed 08:00 - 17:00 / Thur, Sat 20:00 - 02:00",
     "masks": [
       {
-        "name": "AniMask (green) (10 per pack)",
-        "price": 25.42
+        "name": "Masquerade (black) (10 per pack)",
+        "price": 23.98
       },
       {
-        "name": "AniMask (blue) (10 per pack)",
-        "price": 34.39
+        "name": "True Barrier (green) (3 per pack)",
+        "price": 12.06
       },
       {
-        "name": "Second Smile (black) (3 per pack)",
-        "price": 12.38
+        "name": "Cotton Kiss (black) (3 per pack)",
+        "price": 3.8
       },
       {
-        "name": "MaskT (green) (3 per pack)",
-        "price": 11.56
+        "name": "True Barrier (black) (10 per pack)",
+        "price": 17.0
       },
       {
-        "name": "AniMask (blue) (6 per pack)",
-        "price": 19.16
+        "name": "Cotton Kiss (blue) (10 per pack)",
+        "price": 37.82
       },
       {
-        "name": "AniMask (black) (10 per pack)",
-        "price": 36.31
+        "name": "Second Smile (blue) (6 per pack)",
+        "price": 15.94
       },
       {
-        "name": "Free to Roam (black) (6 per pack)",
-        "price": 20.16
-      },
-      {
-        "name": "AniMask (green) (3 per pack)",
-        "price": 3.23
-      },
-      {
-        "name": "Masquerade (green) (3 per pack)",
-        "price": 5.73
-      }
-    ]
-  },
-  {
-    "name": "Apotheco",
-    "cashBalance": 274.49,
-    "openingHours": "Mon, Sat 10:06 - 14:26 / Tue 08:27 - 22:13 / Wed 08:06 - 16:22 / Thu 12:24 - 19:49 / Sun 15:53 - 05:32",
-    "masks": [
-      {
-        "name": "Masquerade (blue) (10 per pack)",
-        "price": 38.33
-      }
-    ]
-  },
-  {
-    "name": "Drug Blend",
-    "cashBalance": 767.14,
-    "openingHours": "Mon 04:08 - 20:52 / Tue 01:01 - 06:01 / Wed, Sat 11:18 - 20:37 / Thu 16:44 - 23:43 / Sun 04:26 - 14:48",
-    "masks": [
-      {
-        "name": "MaskT (black) (6 per pack)",
-        "price": 12.9
-      },
-      {
-        "name": "AniMask (black) (3 per pack)",
-        "price": 10.65
-      },
-      {
-        "name": "MaskT (black) (3 per pack)",
-        "price": 4.83
-      },
-      {
-        "name": "Free to Roam (green) (3 per pack)",
-        "price": 13.93
-      }
-    ]
-  },
-  {
-    "name": "Wellcare",
-    "cashBalance": 898.06,
-    "openingHours": "Mon 07:59 - 14:55 / Tue, Fri 08:57 - 04:59 / Wed 17:12 - 22:13 / Thu 01:57 - 06:48",
-    "masks": [
-      {
-        "name": "Masquerade (black) (3 per pack)",
-        "price": 7.33
-      },
-      {
-        "name": "Masquerade (green) (6 per pack)",
-        "price": 26.6
-      },
-      {
-        "name": "AniMask (black) (6 per pack)",
-        "price": 6.53
-      }
-    ]
-  },
-  {
-    "name": "Assured Rx",
-    "cashBalance": 181.76,
-    "openingHours": "Mon, Sat 02:30 - 06:43 / Tue - Wed 08:44 - 11:28 / Thu 02:06 - 05:27 / Fri 05:24 - 16:59",
-    "masks": [
-      {
-        "name": "Masquerade (blue) (6 per pack)",
-        "price": 13.55
-      },
-      {
-        "name": "MaskT (black) (10 per pack)",
-        "price": 46.69
-      },
-      {
-        "name": "Free to Roam (blue) (10 per pack)",
-        "price": 15.79
+        "name": "True Barrier (blue) (10 per pack)",
+        "price": 22.89
       },
       {
         "name": "Second Smile (green) (6 per pack)",
-        "price": 17.61
+        "price": 11.73
+      }
+    ]
+  },
+  {
+    "name": "HealthMart",
+    "cashBalance": 288.14,
+    "openingHours": "Mon, Wed, Fri 08:00 - 12:00 / Tue, Thur 14:00 - 18:00",
+    "masks": [
+      {
+        "name": "Cotton Kiss (green) (3 per pack)",
+        "price": 6.68
       },
       {
-        "name": "Free to Roam (black) (10 per pack)",
-        "price": 35.66
+        "name": "Masquerade (green) (10 per pack)",
+        "price": 37.9
       },
       {
-        "name": "MaskT (blue) (6 per pack)",
-        "price": 28.27
+        "name": "Cotton Kiss (green) (10 per pack)",
+        "price": 33.03
+      },
+      {
+        "name": "Second Smile (blue) (6 per pack)",
+        "price": 21.54
       },
       {
         "name": "MaskT (green) (10 per pack)",
-        "price": 39.4
+        "price": 41.84
       },
       {
-        "name": "Free to Roam (blue) (3 per pack)",
-        "price": 14.61
+        "name": "Masquerade (blue) (10 per pack)",
+        "price": 10.45
+      },
+      {
+        "name": "True Barrier (black) (3 per pack)",
+        "price": 3.38
+      },
+      {
+        "name": "Cotton Kiss (blue) (3 per pack)",
+        "price": 5.42
+      }
+    ]
+  },
+  {
+    "name": "RX Universal",
+    "cashBalance": 244.03,
+    "openingHours": "Mon, Wed, Fri 20:00 - 02:00",
+    "masks": [
+      {
+        "name": "MaskT (black) (6 per pack)",
+        "price": 28.09
+      },
+      {
+        "name": "True Barrier (blue) (3 per pack)",
+        "price": 6.66
+      },
+      {
+        "name": "MaskT (green) (10 per pack)",
+        "price": 43.6
+      },
+      {
+        "name": "Cotton Kiss (green) (10 per pack)",
+        "price": 13.32
+      }
+    ]
+  },
+  {
+    "name": "Health Element",
+    "cashBalance": 789.85,
+    "openingHours": "Mon, Wed, Fri 20:00 - 02:00",
+    "masks": [
+      {
+        "name": "MaskT (green) (10 per pack)",
+        "price": 24.55
+      },
+      {
+        "name": "Masquerade (green) (6 per pack)",
+        "price": 25.44
+      },
+      {
+        "name": "Cotton Kiss (green) (6 per pack)",
+        "price": 20.5
+      },
+      {
+        "name": "MaskT (blue) (10 per pack)",
+        "price": 33.96
+      }
+    ]
+  },
+  {
+    "name": "Blink Health",
+    "cashBalance": 271.83,
+    "openingHours": "Mon - Fri 08:00 - 17:00",
+    "masks": [
+      {
+        "name": "Cotton Kiss (black) (6 per pack)",
+        "price": 12.28
+      },
+      {
+        "name": "True Barrier (black) (6 per pack)",
+        "price": 12.63
+      },
+      {
+        "name": "MaskT (green) (6 per pack)",
+        "price": 8.12
+      },
+      {
+        "name": "Second Smile (black) (6 per pack)",
+        "price": 26.8
+      },
+      {
+        "name": "Masquerade (black) (6 per pack)",
+        "price": 13.78
+      },
+      {
+        "name": "True Barrier (blue) (3 per pack)",
+        "price": 13.11
+      }
+    ]
+  },
+  {
+    "name": "Acculife Drug Stores",
+    "cashBalance": 828.5,
+    "openingHours": "Mon, Wed, Fri 20:00 - 02:00",
+    "masks": [
+      {
+        "name": "True Barrier (green) (10 per pack)",
+        "price": 23.64
+      },
+      {
+        "name": "Cotton Kiss (blue) (10 per pack)",
+        "price": 12.59
+      }
+    ]
+  },
+  {
+    "name": "Cool Pharmacy Names",
+    "cashBalance": 623.47,
+    "openingHours": "Fri - Sun 20:00 - 02:00",
+    "masks": [
+      {
+        "name": "Second Smile (blue) (10 per pack)",
+        "price": 23.6
+      },
+      {
+        "name": "Masquerade (black) (6 per pack)",
+        "price": 17.42
       },
       {
         "name": "Second Smile (black) (3 per pack)",
-        "price": 13.52
-      }
-    ]
-  },
-  {
-    "name": "RxToMe",
-    "cashBalance": 510.91,
-    "openingHours": "Mon 07:12 - 11:46 / Wed 16:24 - 20:15 / Thu 08:59 - 14:07 / Sat - Sun 10:47 - 12:50",
-    "masks": [
-      {
-        "name": "Masquerade (green) (6 per pack)",
-        "price": 12.7
-      }
-    ]
-  },
-  {
-    "name": "DFW Wellness",
-    "cashBalance": 466.36,
-    "openingHours": "Mon - Tue 00:20 - 16:06 / Wed, Sun 10:02 - 13:23 / Thu 10:02 - 09:41 / Fri 16:08 - 21:01",
-    "masks": [
-      {
-        "name": "Second Smile (green) (6 per pack)",
-        "price": 14.9
+        "price": 4.35
       },
       {
-        "name": "AniMask (blue) (3 per pack)",
-        "price": 9.24
+        "name": "Masquerade (black) (3 per pack)",
+        "price": 11.02
+      },
+      {
+        "name": "Cotton Kiss (blue) (10 per pack)",
+        "price": 13.95
+      },
+      {
+        "name": "Cotton Kiss (black) (10 per pack)",
+        "price": 41.36
+      },
+      {
+        "name": "Second Smile (blue) (3 per pack)",
+        "price": 5.4
+      },
+      {
+        "name": "Cotton Kiss (green) (10 per pack)",
+        "price": 47.64
       }
     ]
   }
