@@ -6,7 +6,7 @@
   Import [this](#api-document) json file to Postman
 
 ### Import Data Commands
-  `rake import_data:book_store[PATH_TO_FILE]`
+  `rake import_data:book_store[PATH_TO_FILE]`  
   `rake import_data:user[PATH_TO_FILE]`
 
 ## Bonus
