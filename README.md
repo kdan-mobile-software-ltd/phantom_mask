@@ -36,7 +36,6 @@ In your repository, you would need to document the API interface, the commands t
 1. Fork this repository to your GitHub account.
 2. Add [redtear1115](https://github.com/redtear1115) as a collaborator to your private repository.
 3. Write an introduction to all your works on [response.md](response.md).
-    * Please describe how to use the API in the API documentation. You can edit by any format (eg. Markdown or OpenAPI) or free tools (eg. [hackMD](https://hackmd.io/), [postman](https://www.postman.com/), [google doc](https://docs.google.com/document/u/0/) or [swagger](https://swagger.io/specification/)).
 4. Write an email to let HR know you are all done. Don't forget the necessary information, such as your GitHub account and the repository URL.
 
 ### Common Mistakes You Should Avoid
