@@ -25,8 +25,8 @@ Import [this](#api-document) json file to Postman.
 Please run these two script commands to migrate the data into the database.
 
 ```bash
-$ rake import_data:book_store[PATH_TO_FILE]
-$ rake import_data:user[PATH_TO_FILE]
+$ rake import_data:pharmacies[PATH_TO_FILE]
+$ rake import_data:users[PATH_TO_FILE]
 ```
 ## B. Bonus Information
 
@@ -52,7 +52,7 @@ $ docker-compose up -d
 
 # go inside the container, run the migrate data command.
 $ docker exec -it my-project bash
-$ rake import_data:book_store[PATH_TO_FILE]
+$ rake import_data:pharmacies[PATH_TO_FILE]
 $ rake import_data:user[PATH_TO_FILE]
 ```
 
