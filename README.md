@@ -78,4 +78,4 @@ Your project will be reviewed by at least one of our backend engineers.
 2. (5%) Dockerize
     - You may use docker to ensure a uniform setup across environments.
 3. (5%) Deploy
-    - It'd be great if you could deploy this on the free tier of any cloud hosting platform (e.g., [free dyno on Heroku](https://devcenter.heroku.com/categories/dynos)) so that we can easily access the application via an URL.
+    - It'd be great if you could deploy this on the free tier of any cloud hosting platform (e.g., [fly.io](https://fly.io/docs/speedrun/), or [render](https://render.com/docs/web-services)) so that we can easily access the application via an URL.
