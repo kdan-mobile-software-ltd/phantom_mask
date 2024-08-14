@@ -1,5 +1,5 @@
 # Response
-> Current content is an example; please edit it to fit your style.
+> The Current content is an **example template**; please edit it to fit your style and content.
 ## A. Required Information
 ### A.1. Requirement Completion Rate
 - [x] List all pharmacies open at a specific time and on a day of the week if requested.
@@ -37,7 +37,7 @@ I wrote down the 20 unit tests for the APIs I built. Please check the test cover
 
 You can run the test script by using the command below:
 
-```ruby
+```bash
 bundle exec rspec spec
 ```
 
@@ -52,13 +52,13 @@ $ docker-compose up -d
 
 # go inside the container, run the migrate data command.
 $ docker exec -it my-project bash
-$ rake import_data:pharmacies[PATH_TO_FILE]
+$ rake import_data:pharmacies[PATH_TO_FILE] 
 $ rake import_data:user[PATH_TO_FILE]
 ```
 
 ### B.3. Demo Site Url
 
-The demo site is ready on [heroku](#demo-site-url); you can try any APIs on this demo site.
+The demo site is ready on [my AWS demo site](#demo-site-url); you can try any APIs on this demo site.
 
 ## C. Other Information
 
