@@ -35,7 +35,7 @@ In your repository, you would need to document the API interface, the commands t
 
 ## C. Response Your Job **(Importmant)**
 1. Fork this repository to your GitHub account, and set the repository as **private**.
-2. Add [redtear1115](https://github.com/redtear1115) and [william-eth](https://github.com/william-eth) to your private repository as a collaborator.
+2. Add [william-eth](https://github.com/william-eth) and [ting-wei](https://github.com/ting-wei-huang) to your private repository as a collaborator.
 3. Write an introduction to all your works on [response.md](response.md).
 4. Write an email to let HR know you are all done. Don't forget the necessary information, such as your GitHub account and the repository URL.
 
