@@ -1,11 +1,12 @@
 package KADAN.interview.demo.converter.vo;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.math.BigDecimal;
-import java.sql.Time;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +30,7 @@ public class PharmacyVo {
 		this.name = obj.getString("name");
 		this.cashBalance = obj.getBigDecimal("cashBalance");
 
-		JSONArray masks =  obj.getJSONArray("masks");
+		JSONArray masks = obj.getJSONArray("masks");
 		masks.forEach((e) -> {
 			JSONObject object = new JSONObject(e.toString());
 			MaskVo maskVo = new MaskVo(object);
@@ -43,8 +44,8 @@ public class PharmacyVo {
 	/**
 	 * 將原始 openingHours 字串轉為 OpeningHourVo 清單
 	 * 支援格式：
-	 *   Mon - Fri 08:00 - 17:00 / Sat, Sun 08:00 - 12:00
-	 *   Mon, Wed, Fri 10:00 - 15:00
+	 * Mon - Fri 08:00 - 17:00 / Sat, Sun 08:00 - 12:00
+	 * Mon, Wed, Fri 10:00 - 15:00
 	 */
 	private void parseOpeningHours(String raw) {
 		String[] segments = raw.split("/");
@@ -57,8 +58,8 @@ public class PharmacyVo {
 			String startTime = "", endTime = "";
 
 			if (timeMatcher.find()) {
-				startTime = timeMatcher.group(1)+":00";
-				endTime = timeMatcher.group(2)+":00";
+				startTime = timeMatcher.group(1) + ":00";
+				endTime = timeMatcher.group(2) + ":00";
 			} else {
 				System.err.println("❌ 無法擷取時間: " + segment);
 				continue;

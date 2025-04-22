@@ -29,5 +29,4 @@ public class PharmacyMaskInventory {
 
 	@Column(nullable = false)
 	private Integer quantity;
-
 }

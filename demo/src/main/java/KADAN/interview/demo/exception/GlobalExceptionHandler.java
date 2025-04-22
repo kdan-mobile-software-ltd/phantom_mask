@@ -24,7 +24,7 @@ public class GlobalExceptionHandler {
 	}
 
 	@ExceptionHandler(Exception.class)
-	public ResponseEntity<ErrorResponse> handleGeneric(Exception ex) {
+	public ResponseEntity<ErrorResponse> handleGeneric() {
 		return buildErrorResponse(
 				HttpStatus.INTERNAL_SERVER_ERROR,
 				"Unexpected error occurred. Please check backend server."

@@ -27,6 +27,4 @@ public class UsersVo {
 			histories.add(new TransactionHistoryVo(historyArray.getJSONObject(i)));
 		}
 	}
-
-
 }

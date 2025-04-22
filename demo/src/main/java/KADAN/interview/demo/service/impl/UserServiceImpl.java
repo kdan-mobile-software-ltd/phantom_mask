@@ -3,7 +3,6 @@ package KADAN.interview.demo.service.impl;
 import KADAN.interview.demo.converter.dto.UserDto;
 import KADAN.interview.demo.repository.TransactionHistoryRepository;
 import KADAN.interview.demo.service.UserService;
-import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
@@ -21,5 +20,4 @@ public class UserServiceImpl implements UserService {
 		PageRequest page = PageRequest.of(0, top);
 		return transactionHistoryRepository.findTopUsersByTransactionBetween(startDate, endDate, page);
 	}
-
 }

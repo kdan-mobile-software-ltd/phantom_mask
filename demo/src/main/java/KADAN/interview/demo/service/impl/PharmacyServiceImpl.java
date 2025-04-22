@@ -161,5 +161,4 @@ public class PharmacyServiceImpl implements PharmacyService {
 		dto.setOpeningHours(openingTimeVos);
 		return dto;
 	}
-
 }

@@ -158,6 +158,5 @@ public class DataLoaderServiceImpl implements DataLoaderService {
 			throw new IllegalArgumentException("Cannot extract pack size from mask name: " + name);
 		}
 	}
-
 }
 

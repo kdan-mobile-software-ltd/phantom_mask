@@ -42,5 +42,4 @@ public class TransactionHistory {
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "transaction_date", nullable = false)
 	private Date transactionDate;
-
 }

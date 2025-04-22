@@ -56,9 +56,8 @@ public class SearchController {
 			@Parameter(description = "Keyword to search")
 			@RequestParam String keyword,
 
-			@Parameter(description = "搜尋目標：PHARMACY = 查詢藥局, MASK = 查詢口罩")
+			@Parameter(	description = "Search target: PHARMACY = search pharmacies, MASK = search masks")
 			@RequestParam(required = false) SearchTarget type
-
 	) {
 		return ResponseEntity.ok(searchService.searchAll(keyword, type));
 	}

@@ -137,5 +137,4 @@ public class PharmacyController {
 		}
 		return ResponseEntity.ok(pharmacyService.filterPharmaciesByMask(minPrice, maxPrice, productCount, compareType));
 	}
-
 }

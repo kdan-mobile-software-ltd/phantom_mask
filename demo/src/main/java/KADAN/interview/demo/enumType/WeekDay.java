@@ -1,5 +1,8 @@
 package KADAN.interview.demo.enumType;
 
+import lombok.Getter;
+
+@Getter
 public enum WeekDay {
 	MON("Mon"),
 	TUE("Tue"),
@@ -15,7 +18,4 @@ public enum WeekDay {
 		this.label = label;
 	}
 
-	public String getLabel() {
-		return label;
-	}
 }

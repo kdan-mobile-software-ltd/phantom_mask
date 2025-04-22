@@ -22,5 +22,4 @@ public interface OpeningTimeRepository extends JpaRepository<OpeningTime, Long>,
 			    AND ot.endTime >= :queryTime
 			""")
 	List<OpeningTime> findOpenPharmacies(@Param("weekDay") String weekDay, @Param("queryTime") Time time);
-
 }

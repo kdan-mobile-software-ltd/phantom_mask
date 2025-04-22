@@ -67,7 +67,8 @@ public class MaskController {
 
 	@Operation(
 			summary = "Purchase mask",
-			description = "User purchases a mask from a specific pharmacy. This operation updates balance and records transaction.",
+			description = "User purchases a mask from a specific pharmacy. " +
+					"This operation updates balance and records transaction.",
 			responses = {
 					@ApiResponse(
 							responseCode = "200", description = "Mask purchase successful",

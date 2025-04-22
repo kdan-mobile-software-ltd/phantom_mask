@@ -109,5 +109,4 @@ public class MaskServiceImpl implements MaskService {
 		transactionDto.setUserBalanceAfter(afterCashBalance);
 		return transactionDto;
 	}
-
 }

@@ -17,5 +17,4 @@ public interface PharmacyService {
 
 	List<PharmacyDto> filterPharmaciesByMask(
 			BigDecimal minPrice, BigDecimal maxPrice, int productCount, CompareType compareType);
-
 }
