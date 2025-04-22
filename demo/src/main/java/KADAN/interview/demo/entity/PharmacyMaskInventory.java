@@ -30,6 +30,4 @@ public class PharmacyMaskInventory {
 	@Column(nullable = false)
 	private Integer quantity;
 
-	@Column(name = "pack_size", nullable = false)
-	private Integer packSize;
 }

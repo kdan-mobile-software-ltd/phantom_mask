@@ -54,7 +54,7 @@ public class PharmacyMaskInventoryServiceImpl implements PharmacyMaskInventorySe
 							Path<?> sortPath =
 									sortField.equals(SortField.NAME) ?
 											root.get(PharmacyMaskInventory_.mask).get(Mask_.name) :
-											root.get(PharmacyMaskInventory_.price);
+											root.get(PharmacyMaskInventory_.mask).get(Mask_.price);
 
 							// 決定排序方向
 							Order order = sortDir.equals(SortDirection.DESC)

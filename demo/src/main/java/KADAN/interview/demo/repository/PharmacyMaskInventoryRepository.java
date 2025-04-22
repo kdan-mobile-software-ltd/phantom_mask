@@ -10,4 +10,6 @@ public interface PharmacyMaskInventoryRepository extends JpaRepository<PharmacyM
 	Optional<PharmacyMaskInventory> findByPharmacyId(Long pharmacyId);
 
 	Optional<PharmacyMaskInventory> findByMaskId(Long maskId);
+
+	Optional<PharmacyMaskInventory> findByPharmacyIdAndMaskName(Long pharmacyId, String name);
 }

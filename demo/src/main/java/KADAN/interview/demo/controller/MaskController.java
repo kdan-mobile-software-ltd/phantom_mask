@@ -70,29 +70,31 @@ public class MaskController {
 			description = "User purchases a mask from a specific pharmacy. This operation updates balance and records transaction.",
 			responses = {
 					@ApiResponse(
-							responseCode = "200", description = "Mask purchase successful"),
+							responseCode = "200", description = "Mask purchase successful",
+							content = @Content(mediaType = "application/json",
+									schema = @Schema(implementation = TransactionDto.class))),
 					@ApiResponse(
 							responseCode = "404",
 							description = "User, Pharmacy, or Mask not found",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class))),
+									schema = @Schema(implementation = ErrorResponse.class))),
 					@ApiResponse(
 							responseCode = "409",
 							description = "Insufficient balance or other conflict",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class))),
+									schema = @Schema(implementation = ErrorResponse.class))),
 					@ApiResponse(
 							responseCode = "500",
 							description = "Internal server error",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class)))
+									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
 	@PostMapping("/purchase")
 	public ResponseEntity<TransactionDto> purchaseMask(
 			@RequestBody @Validated final PurchaseRequest request
 	) {
-		if ( request.getQuantity() < 0 ){
+		if (request.getQuantity() < 0) {
 			throw new IllegalArgumentException("The purchase quantity must be greater than zero");
 		}
 		return ResponseEntity.ok(maskService.processPurchase(request));

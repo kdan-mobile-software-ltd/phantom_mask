@@ -6,7 +6,6 @@ import KADAN.interview.demo.converter.dto.TransactionSummaryDto;
 import KADAN.interview.demo.entity.*;
 import KADAN.interview.demo.repository.*;
 import KADAN.interview.demo.service.MaskService;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -20,7 +19,6 @@ public class MaskServiceImpl implements MaskService {
 	private final TransactionHistoryRepository transactionHistoryRepository;
 	private final UsersRepository userRepository;
 	private final PharmacyRepository pharmacyRepository;
-	private final MaskRepository maskRepository;
 	private final PharmacyMaskInventoryRepository inventoryRepository;
 
 	@Override
@@ -37,19 +35,14 @@ public class MaskServiceImpl implements MaskService {
 		Pharmacy pharmacy = pharmacyRepository.findById(request.getPharmacyId())
 				.orElseThrow(() -> new IllegalArgumentException("[PHARMACY_NOT_FOUND] Pharmacy ID " + request.getPharmacyId() + " not found."));
 
-		Mask mask = maskRepository.findByPharmacyIdAndName(pharmacy.getId(), request.getMaskName())
-				.orElseThrow(() -> new IllegalArgumentException(String.format(
-						"[MASK_NOT_FOUND] Pharmacy '%s' does not have a mask of type '%s'.",
-						pharmacy.getName(), request.getMaskName())));
+		PharmacyMaskInventory inventory = inventoryRepository
+				.findByPharmacyIdAndMaskName(pharmacy.getId(), request.getMaskName())
+				.orElseThrow(() -> new IllegalArgumentException(
+						"[MASK_NOT_FOUND] Pharmacy '%s' does not carry a mask named '%s'.".formatted(
+								pharmacy.getName(), request.getMaskName())
+				));
 
-		PharmacyMaskInventory inventory =
-				pharmacy
-						.getInventories()
-						.stream()
-						.filter(pk -> pk.getMask().getId().equals(mask.getId()))
-						.findFirst()
-						.orElseThrow(() -> new EntityNotFoundException("The mask dose not exist on inventory."));
-
+		Mask mask = inventory.getMask();
 		BigDecimal unitPrice = mask.getPrice();
 		Integer quantity = request.getQuantity();
 		BigDecimal totalAmount = unitPrice.multiply(BigDecimal.valueOf(quantity));
@@ -72,15 +65,16 @@ public class MaskServiceImpl implements MaskService {
 		// 藥局增加金額
 		pharmacy.setCashBalance(pharmacy.getCashBalance().add(totalAmount));
 		// 扣除口罩數量
-		int afterQuantity = inventory.getPackSize() - quantity;
+		Integer inventoryQuantity = inventory.getQuantity();
+		int afterQuantity = inventoryQuantity - quantity;
 		if (afterQuantity < 0) {
 			throw new IllegalStateException(
 					String.format("Not enough stock for mask '%s'. Available: %d, requested: %d",
-							mask.getName(), inventory.getPackSize(), quantity)
+							mask.getName(), inventoryQuantity, quantity)
 			);
 		}
 		// 更新庫存
-		inventory.setPackSize(afterQuantity);
+		inventory.setQuantity(afterQuantity);
 
 		try {
 			userRepository.save(users);
