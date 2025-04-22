@@ -2,19 +2,26 @@ package KADAN.interview.demo.service.impl;
 
 import KADAN.interview.demo.converter.dto.MaskDto;
 import KADAN.interview.demo.converter.dto.PharmacyDto;
+import KADAN.interview.demo.converter.vo.MaskVo;
+import KADAN.interview.demo.converter.vo.OpeningTimeVo;
 import KADAN.interview.demo.entity.*;
-import KADAN.interview.demo.repository.MaskRepository;
+import KADAN.interview.demo.enumType.CompareType;
+import KADAN.interview.demo.enumType.SortDirection;
+import KADAN.interview.demo.enumType.SortField;
+import KADAN.interview.demo.enumType.WeekDay;
 import KADAN.interview.demo.repository.OpeningTimeRepository;
 import KADAN.interview.demo.repository.PharmacyRepository;
+import KADAN.interview.demo.service.PharmacyMaskInventoryService;
 import KADAN.interview.demo.service.PharmacyService;
 import jakarta.persistence.EntityNotFoundException;
-import jakarta.persistence.criteria.*;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 import java.sql.Time;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -22,17 +29,17 @@ import java.util.List;
 public class PharmacyServiceImpl implements PharmacyService {
 	private final PharmacyRepository pharmacyRepository;
 	private final OpeningTimeRepository openingTimeRepository;
-	private final MaskRepository maskRepository;
+	private final PharmacyMaskInventoryService inventoryService;
 
 	@Override
-	public List<PharmacyDto> getOpenPharmacies(String weekDay, String time) {
+	public List<PharmacyDto> getOpenPharmacies(WeekDay weekDay, String time) {
 		final Time queryTime = Time.valueOf(time + ":00");
 		return openingTimeRepository
 				.findAll(
 						((root, criteriaQuery, criteriaBuilder) ->
 								criteriaBuilder.and(
 										criteriaBuilder.equal(
-												root.get(OpeningTime_.weekDay), weekDay
+												root.get(OpeningTime_.weekDay), weekDay.getLabel()
 										),
 										criteriaBuilder.lessThanOrEqualTo(
 												root.get(OpeningTime_.startTime), queryTime
@@ -56,39 +63,18 @@ public class PharmacyServiceImpl implements PharmacyService {
 	}
 
 	@Override
-	public List<MaskDto> getMasksByPharmacy(String pharmacyName, Boolean sortBy, Boolean direction) {
-		Pharmacy pharmacy = pharmacyRepository.findByName(pharmacyName)
+	public List<MaskDto> getMasksByPharmacy(long id, SortField sortBy, SortDirection direction) {
+		Pharmacy pharmacy = pharmacyRepository.findById(id)
 				.orElseThrow(
-						() -> new EntityNotFoundException("Pharmacy not found: " + pharmacyName));
-		return maskRepository.findAll(
-						(root, criteriaQuery, criteriaBuilder) ->
-						{
-							// 預設值處理
-							boolean sortByName = sortBy == null || sortBy;         // 預設以 name 排序
-							boolean sortDesc = direction != null && direction;     // 預設 asc
-
-							// 決定排序欄位
-							Path<?> sortPath = sortByName ? root.get(Mask_.name) : root.get(Mask_.price);
-
-							// 決定排序方向
-							Order order = sortDesc
-									? criteriaBuilder.desc(sortPath)
-									: criteriaBuilder.asc(sortPath);
-
-							// 套用排序條件
-							criteriaQuery.orderBy(order);
-							return criteriaBuilder.equal(
-									root.get(Mask_.pharmacy), pharmacy
-							);
-						}
-				)
+						() -> new EntityNotFoundException("Pharmacy not found with id: " + id));
+		return inventoryService.findAll(pharmacy, sortBy, direction)
 				.stream()
 				.map(
-						mask -> {
+						inventory -> {
 							MaskDto dto = new MaskDto();
-							dto.setName(mask.getName());
-							dto.setPrice(mask.getPrice());
-							dto.setPackSize(mask.getPackSize());
+							dto.setName(inventory.getMask().getName());
+							dto.setPrice(inventory.getMask().getPrice());
+							dto.setPackSize(inventory.getQuantity());
 							return dto;
 						}
 				)
@@ -98,41 +84,77 @@ public class PharmacyServiceImpl implements PharmacyService {
 
 	@Override
 	public List<PharmacyDto> filterPharmaciesByMask(
-			BigDecimal minPrice, BigDecimal maxPrice, int productCount, Boolean type) {
-		return pharmacyRepository.findAll(
-						(root, criteriaQuery, criteriaBuilder) ->
-						{
-							Join<Pharmacy, Mask> maskJoin = root.join(Pharmacy_.masks, JoinType.LEFT);
-							List<Predicate> predicates = new ArrayList<>();
-							if (type == null || type) {
-								predicates.add(
-										criteriaBuilder.greaterThanOrEqualTo(
-												maskJoin.get(Mask_.packSize), productCount
-										)
-								);
-							} else {
-								predicates.add(
-										criteriaBuilder.lessThan(
-												maskJoin.get(Mask_.packSize), productCount
-										)
-								);
-							}
-							criteriaBuilder.greaterThan(
-									maskJoin.get(Mask_.price), minPrice
-							);
-							criteriaBuilder.lessThan(
-									maskJoin.get(Mask_.price), maxPrice
-							);
+			BigDecimal minPrice
+			, BigDecimal maxPrice
+			, int productCount
+			, CompareType compareType
+	) {
+		List<Pharmacy> filteredPharmacies = pharmacyRepository.findAll((root, query, cb) -> {
+			query.distinct(true);
+			Join<Pharmacy, PharmacyMaskInventory> inventoryJoin = root.join(Pharmacy_.inventories, JoinType.LEFT);
 
-							return criteriaBuilder.and(predicates.toArray(new Predicate[0]));
-						}
-				)
+			Predicate quantityPredicate = (compareType == CompareType.GREATER)
+					? cb.greaterThanOrEqualTo(inventoryJoin.get(PharmacyMaskInventory_.quantity), productCount)
+					: cb.lessThan(inventoryJoin.get(PharmacyMaskInventory_.quantity), productCount);
+
+			Predicate priceMin = cb.greaterThanOrEqualTo(
+					inventoryJoin.get(PharmacyMaskInventory_.mask).get(Mask_.price), minPrice
+			);
+			Predicate priceMax = cb.lessThanOrEqualTo(
+					inventoryJoin.get(PharmacyMaskInventory_.mask).get(Mask_.price), maxPrice
+			);
+
+			return cb.and(quantityPredicate, priceMin, priceMax);
+		});
+
+		return filteredPharmacies
 				.stream()
 				.map(
 						pharmacy -> {
 							PharmacyDto dto = new PharmacyDto();
 							dto.setName(pharmacy.getName());
 							dto.setCashBalance(pharmacy.getCashBalance());
+
+							// 取得符合條件的口罩清單
+							List<MaskVo> maskVoList = pharmacy.getInventories()
+									.stream()
+									.filter(
+											inv -> {
+												BigDecimal price = inv.getMask().getPrice();
+												int quantity = inv.getQuantity();
+
+												boolean priceInRange = price.compareTo(minPrice) >= 0 && price.compareTo(maxPrice) <= 0;
+												boolean quantityValid = (compareType == CompareType.GREATER)
+														? quantity >= productCount
+														: quantity < productCount;
+
+												return priceInRange && quantityValid;
+											}
+									)
+									.map(
+											masks -> {
+												MaskVo vo = new MaskVo();
+												vo.setName(masks.getMask().getName());
+												vo.setPrice(masks.getMask().getPrice());
+												vo.setPackSize(masks.getQuantity());
+												return vo;
+											}
+									).toList();
+							dto.setMasks(maskVoList);
+
+							// 取得營業時間
+							List<OpeningTimeVo> openingTimeVos =
+									pharmacy.getOpeningTimes()
+											.stream()
+											.map(
+													open -> new OpeningTimeVo(
+															open.getWeekDay(),
+															open.getStartTime().toLocalTime(),
+															open.getEndTime().toLocalTime())
+											)
+											.toList();
+							dto.setOpeningHours(openingTimeVos);
+
 							return dto;
 						}
 				).toList();

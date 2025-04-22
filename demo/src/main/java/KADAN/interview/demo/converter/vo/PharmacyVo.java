@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import java.math.BigDecimal;
 import java.sql.Time;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -62,13 +63,11 @@ public class PharmacyVo {
 				System.err.println("❌ 無法擷取時間: " + segment);
 				continue;
 			}
-			System.out.println("startTime --->"+Time.valueOf(startTime));
-			System.out.println("endTime --->"+endTime);
 			String daysPart = segment.substring(0, timeMatcher.start()).trim();
 			List<String> expandedDays = extractDays(daysPart);
 
 			for (String day : expandedDays) {
-				openingHours.add(new OpeningTimeVo(day, Time.valueOf(startTime), Time.valueOf(endTime)));
+				openingHours.add(new OpeningTimeVo(day, LocalTime.parse(startTime), LocalTime.parse(endTime)));
 			}
 		}
 	}

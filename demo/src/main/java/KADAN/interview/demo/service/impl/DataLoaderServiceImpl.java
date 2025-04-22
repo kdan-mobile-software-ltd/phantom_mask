@@ -21,6 +21,7 @@ import org.springframework.util.ResourceUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.sql.Time;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -31,6 +32,7 @@ public class DataLoaderServiceImpl implements DataLoaderService {
 	private final Logger LOGGER = LoggerFactory.getLogger(this.getClass());
 	private final PharmacyRepository pharmacyRepository;
 	private final MaskRepository maskRepository;
+	private final PharmacyMaskInventoryRepository inventoryRepository;
 	private final OpeningTimeRepository openingTimeRepository;
 	private final UsersRepository usersRepository;
 	private final TransactionHistoryRepository historyRepository;
@@ -90,12 +92,17 @@ public class DataLoaderServiceImpl implements DataLoaderService {
 
 			vo.getMasks().forEach(
 					maskVo -> {
+						String name = maskVo.getName();
 						Mask mask = new Mask();
-						mask.setPharmacy(savedPharmacy);
-						mask.setName(maskVo.getName());
+						mask.setName(name);
 						mask.setPrice(maskVo.getPrice());
-						mask.setPackSize(extractPackSize(maskVo.getName()));
 						maskRepository.save(mask);
+
+						PharmacyMaskInventory inventory = new PharmacyMaskInventory();
+						inventory.setPharmacy(savedPharmacy);
+						inventory.setMask(mask);
+						inventory.setQuantity(extractPackSize(name));
+						inventoryRepository.save(inventory);
 					});
 
 			vo.getOpeningHours()
@@ -104,8 +111,8 @@ public class DataLoaderServiceImpl implements DataLoaderService {
 								OpeningTime oh = new OpeningTime();
 								oh.setPharmacy(savedPharmacy);
 								oh.setWeekDay(timeVo.getWeekDay());
-								oh.setStartTime(timeVo.getStartTime());
-								oh.setEndTime(timeVo.getEndTime());
+								oh.setStartTime(Time.valueOf(timeVo.getStartTime()));
+								oh.setEndTime(Time.valueOf(timeVo.getEndTime()));
 								openingTimeRepository.save(oh);
 							});
 		}

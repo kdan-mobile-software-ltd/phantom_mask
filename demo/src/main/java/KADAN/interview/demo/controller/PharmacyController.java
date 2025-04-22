@@ -2,6 +2,10 @@ package KADAN.interview.demo.controller;
 
 import KADAN.interview.demo.converter.dto.MaskDto;
 import KADAN.interview.demo.converter.dto.PharmacyDto;
+import KADAN.interview.demo.enumType.CompareType;
+import KADAN.interview.demo.enumType.SortDirection;
+import KADAN.interview.demo.enumType.SortField;
+import KADAN.interview.demo.enumType.WeekDay;
 import KADAN.interview.demo.exception.ErrorResponse;
 import KADAN.interview.demo.service.PharmacyService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -38,18 +42,21 @@ public class PharmacyController {
 							responseCode = "400",
 							description = "Invalid input",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class))),
+									schema = @Schema(implementation = ErrorResponse.class))),
 					@ApiResponse(
 							responseCode = "500",
 							description = "Internal server error",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class)))
+									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
 	@PostMapping("/queryOpeningHour")
 	public ResponseEntity<List<PharmacyDto>> getOpenPharmacies(
-			@Parameter(description = "Day of the week, e.g., Mon, Tue, Wed...")
-			@RequestParam String weekDay,
+			@Parameter(
+					description = "Day of the week. Acceptable values: MON, TUE, WED, THU, FRI, SAT, SUN",
+					example = "MON"
+			)
+			@RequestParam WeekDay weekDay,
 
 			@Parameter(description = "Time in HH:mm format, e.g., 08:00 or 20:00")
 			@RequestParam String time
@@ -70,26 +77,26 @@ public class PharmacyController {
 							responseCode = "400",
 							description = "Invalid input",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class))),
+									schema = @Schema(implementation = ErrorResponse.class))),
 					@ApiResponse(
 							responseCode = "500",
 							description = "Internal server error",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class)))
+									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
-	@GetMapping("/queryMasks")
+	@GetMapping("/queryMasks/{id:^\\d+$}")
 	public ResponseEntity<List<MaskDto>> getMasksByPharmacy(
-			@Parameter(description = "Pharmacy name")
-			@RequestParam String pharmacyName,
+			@Parameter(description = "Pharmacy ID")
+			@PathVariable long id,
 
-			@Parameter(description = "Sort by: true=name, false=price", required = false)
-			@RequestParam(required = false) Boolean sortBy,
+			@Parameter(description = "Sort field: NAME or PRICE", example = "NAME")
+			@RequestParam(required = false, defaultValue = "NAME") SortField sortBy,
 
-			@Parameter(description = "Sort direction: true=desc, false=asc", required = false)
-			@RequestParam(required = false) Boolean direction
+			@Parameter(description = "Sort direction: ASC or DESC", example = "ASC")
+			@RequestParam(required = false, defaultValue = "ASC") SortDirection direction
 	) {
-		return ResponseEntity.ok(pharmacyService.getMasksByPharmacy(pharmacyName, sortBy, direction));
+		return ResponseEntity.ok(pharmacyService.getMasksByPharmacy(id, sortBy, direction));
 	}
 
 	@Operation(
@@ -103,32 +110,32 @@ public class PharmacyController {
 							responseCode = "400",
 							description = "Invalid input",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class))),
+									schema = @Schema(implementation = ErrorResponse.class))),
 					@ApiResponse(
 							responseCode = "500",
 							description = "Internal server error",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class)))
+									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
 	@GetMapping("/filter")
 	public ResponseEntity<List<PharmacyDto>> filterPharmacies(
-			@Parameter(description = "Minimum mask price")
+			@Parameter(description = "Minimum mask price",example = "10.99")
 			@RequestParam BigDecimal minPrice,
 
-			@Parameter(description = "Maximum mask price")
+			@Parameter(description = "Maximum mask price",example = "15.01")
 			@RequestParam BigDecimal maxPrice,
 
-			@Parameter(description = "Threshold of number of mask products and must be a positive integer")
+			@Parameter(description = "Mask products count threshold must be positive",example ="3")
 			@RequestParam int productCount,
 
-			@Parameter(description = "Type of filter: true=greater than or equal, false=less than")
-			@RequestParam Boolean type
+			@Parameter(description = "Comparison type: GREATER or LESS")
+			@RequestParam CompareType compareType
 	) {
-		if (productCount < 0 ){
+		if (productCount < 0) {
 			return ResponseEntity.badRequest().build();
 		}
-		return ResponseEntity.ok(pharmacyService.filterPharmaciesByMask(minPrice, maxPrice, productCount, type));
+		return ResponseEntity.ok(pharmacyService.filterPharmaciesByMask(minPrice, maxPrice, productCount, compareType));
 	}
 
 }
