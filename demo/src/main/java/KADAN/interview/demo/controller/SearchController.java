@@ -22,7 +22,7 @@ import java.util.Map;
 
 @Tag(name = "Search", description = "Full-text search for pharmacies or masks")
 @RestController
-@RequestMapping("/search")
+@RequestMapping("/api/v1/search")
 public class SearchController {
 
 	private final SearchService searchService;

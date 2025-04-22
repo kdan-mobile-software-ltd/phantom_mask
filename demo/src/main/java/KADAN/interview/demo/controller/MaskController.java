@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/mask")
+@RequestMapping("/api/v1/mask")
 @RequiredArgsConstructor
 @Tag(name = "Mask", description = "Mask purchase and summary operations")
 public class MaskController {

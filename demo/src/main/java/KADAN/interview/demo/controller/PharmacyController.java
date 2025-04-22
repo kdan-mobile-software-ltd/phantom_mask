@@ -24,7 +24,7 @@ import java.util.List;
 
 @Tag(name = "Pharmacy", description = "Operations for querying pharmacy business hours and mask sales")
 @RestController
-@RequestMapping("/pharmacy")
+@RequestMapping("/api/v1/pharmacy")
 @RequiredArgsConstructor
 public class PharmacyController {
 	private final PharmacyService pharmacyService;

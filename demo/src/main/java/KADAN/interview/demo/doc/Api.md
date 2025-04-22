@@ -14,7 +14,7 @@
 <!-- TOC -->
 #  ⭐ Mask API
 
-**Base Path:** `/mask`
+**Base Path:** `/api/v1/mask`
 
 ---
 
@@ -96,7 +96,7 @@ Returns transaction result:
 
 # 👤 User API
 
-**Base Path:** `/user`
+**Base Path:** `/api/v1/user`
 
 ---
 
@@ -151,7 +151,7 @@ Returns the top X users who have the highest total transaction amounts within th
 
 # 🏪 Pharmacy API
 
-**Base Path:** `/pharmacy`
+**Base Path:** `/api/v1/pharmacy`
 
 ---
 
@@ -283,7 +283,7 @@ Returns a list of pharmacies that offer a certain number of mask products within
 
 # 🔍 Search API
 
-**Base Path:** `/search`
+**Base Path:** `/api/v1/search`
 
 ---
 

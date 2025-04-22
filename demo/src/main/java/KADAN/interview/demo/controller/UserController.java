@@ -24,7 +24,7 @@ import java.util.List;
 
 @Tag(name = "User", description = "Operations related to users and their transactions")
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/api/v1/user")
 @RequiredArgsConstructor
 public class UserController {
 	private final DataLoaderService dataLoaderService;
