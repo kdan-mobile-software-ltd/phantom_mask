@@ -9,7 +9,10 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -36,12 +39,12 @@ public class SearchController {
 							responseCode = "400",
 							description = "Invalid input",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class))),
+									schema = @Schema(implementation = ErrorResponse.class))),
 					@ApiResponse(
 							responseCode = "500",
 							description = "Internal server error",
 							content = @Content(mediaType = "application/json",
-							schema = @Schema(implementation = ErrorResponse.class)))
+									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
 	@PostMapping
