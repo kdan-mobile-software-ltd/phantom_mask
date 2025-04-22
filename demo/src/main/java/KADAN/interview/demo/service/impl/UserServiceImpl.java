@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 	private final TransactionHistoryRepository transactionHistoryRepository;
 
 	@Override
-	public List<UserDto> getTopUsers(Date startDate, Date endDate, Integer top) {
+	public List<UserDto> getTopUsers(Date startDate, Date endDate, int top) {
 		PageRequest page = PageRequest.of(0, top);
 		return transactionHistoryRepository.findTopUsersByTransactionBetween(startDate, endDate, page);
 	}

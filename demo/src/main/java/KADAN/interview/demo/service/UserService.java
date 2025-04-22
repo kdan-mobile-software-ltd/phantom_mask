@@ -6,5 +6,5 @@ import java.util.Date;
 import java.util.List;
 
 public interface UserService {
-	List<UserDto> getTopUsers(Date startDate, Date endDate, Integer top);
+	List<UserDto> getTopUsers(Date startDate, Date endDate, int top);
 }

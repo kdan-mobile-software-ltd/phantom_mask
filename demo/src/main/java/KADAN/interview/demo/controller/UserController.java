@@ -79,7 +79,7 @@ public class UserController {
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate,
 
 			@Parameter(description = "Number of top users to return (default = 5)")
-			@RequestParam(defaultValue = "5") Integer top
+			@RequestParam(defaultValue = "5") int top
 	) {
 		if (top <= 0) {
 			return ResponseEntity.badRequest().build();
