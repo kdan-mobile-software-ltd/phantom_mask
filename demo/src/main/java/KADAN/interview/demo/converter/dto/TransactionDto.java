@@ -1,11 +1,16 @@
 package KADAN.interview.demo.converter.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Getter
@@ -35,7 +40,13 @@ public class TransactionDto {
 	@Schema(description = "Total amount of this transaction", example = "59.98")
 	private BigDecimal totalAmount;
 
-	@Schema(description = "Transaction date", example = "2025-04-21T13:20:30.000+08:00")
+	@Schema(
+			description = "Transaction date",
+			example = "2025-04-21 12:00:00",
+			type = "string"
+	)
+	@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date transactionDate;
 
 	@Schema(description = "User's balance after transaction", example = "500.75")

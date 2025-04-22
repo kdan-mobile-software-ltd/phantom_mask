@@ -1,5 +1,6 @@
 package KADAN.interview.demo.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -41,5 +42,10 @@ public class TransactionHistory {
 
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "transaction_date", nullable = false)
+	@JsonFormat(
+			shape = JsonFormat.Shape.STRING,
+			pattern = "yyyy-MM-dd HH:mm:ss",
+			timezone = "Asia/Taipei"
+	)
 	private Date transactionDate;
 }
