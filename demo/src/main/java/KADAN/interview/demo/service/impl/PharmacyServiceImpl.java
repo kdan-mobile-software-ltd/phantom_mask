@@ -34,30 +34,10 @@ public class PharmacyServiceImpl implements PharmacyService {
 	@Override
 	public List<PharmacyDto> getOpenPharmacies(WeekDay weekDay, String time) {
 		final Time queryTime = Time.valueOf(time + ":00");
-		return openingTimeRepository
-				.findAll(
-						((root, criteriaQuery, criteriaBuilder) ->
-								criteriaBuilder.and(
-										criteriaBuilder.equal(
-												root.get(OpeningTime_.weekDay), weekDay.getLabel()
-										),
-										criteriaBuilder.lessThanOrEqualTo(
-												root.get(OpeningTime_.startTime), queryTime
-										),
-										criteriaBuilder.greaterThanOrEqualTo(
-												root.get(OpeningTime_.endTime), queryTime
-										)
+		List<OpeningTime> openTimes = openingTimeRepository.findOpenPharmacies(weekDay.getLabel(), queryTime);
 
-								)
-						)
-				)
-				.stream()
-				.map(openingTime -> {
-					PharmacyDto dto = new PharmacyDto();
-					dto.setName(openingTime.getPharmacy().getName());
-					dto.setCashBalance(openingTime.getPharmacy().getCashBalance());
-					return dto;
-				})
+		return openTimes.stream()
+				.map(this::toPharmacyDto)
 				.distinct()
 				.toList();
 	}
@@ -79,85 +59,107 @@ public class PharmacyServiceImpl implements PharmacyService {
 						}
 				)
 				.toList();
-
 	}
 
 	@Override
 	public List<PharmacyDto> filterPharmaciesByMask(
-			BigDecimal minPrice
-			, BigDecimal maxPrice
-			, int productCount
-			, CompareType compareType
+			BigDecimal minPrice, BigDecimal maxPrice,
+			int productCount, CompareType compareType
 	) {
-		List<Pharmacy> filteredPharmacies = pharmacyRepository.findAll((root, query, cb) -> {
-			query.distinct(true);
-			Join<Pharmacy, PharmacyMaskInventory> inventoryJoin = root.join(Pharmacy_.inventories, JoinType.LEFT);
+		List<Pharmacy> filteredPharmacies =
+				pharmacyRepository.findAll(
+						(root, criteriaQuery, criteriaBuilder) -> {
+							criteriaQuery.distinct(true);
+							Join<Pharmacy, PharmacyMaskInventory> inventoryJoin = root.join(Pharmacy_.inventories, JoinType.LEFT);
+							Join<PharmacyMaskInventory, Mask> maskJoin = inventoryJoin.join(PharmacyMaskInventory_.mask);
 
-			Predicate quantityPredicate = (compareType == CompareType.GREATER)
-					? cb.greaterThanOrEqualTo(inventoryJoin.get(PharmacyMaskInventory_.quantity), productCount)
-					: cb.lessThan(inventoryJoin.get(PharmacyMaskInventory_.quantity), productCount);
+							Predicate quantityPredicate = (compareType == CompareType.GREATER)
+									? criteriaBuilder.greaterThanOrEqualTo(inventoryJoin.get(PharmacyMaskInventory_.quantity), productCount)
+									: criteriaBuilder.lessThan(inventoryJoin.get(PharmacyMaskInventory_.quantity), productCount);
 
-			Predicate priceMin = cb.greaterThanOrEqualTo(
-					inventoryJoin.get(PharmacyMaskInventory_.mask).get(Mask_.price), minPrice
-			);
-			Predicate priceMax = cb.lessThanOrEqualTo(
-					inventoryJoin.get(PharmacyMaskInventory_.mask).get(Mask_.price), maxPrice
-			);
+							Predicate priceMin = criteriaBuilder.greaterThanOrEqualTo(maskJoin.get(Mask_.price), minPrice);
+							Predicate priceMax = criteriaBuilder.lessThanOrEqualTo(maskJoin.get(Mask_.price), maxPrice);
 
-			return cb.and(quantityPredicate, priceMin, priceMax);
-		});
+							return criteriaBuilder.and(quantityPredicate, priceMin, priceMax);
+						});
 
 		return filteredPharmacies
 				.stream()
 				.map(
-						pharmacy -> {
-							PharmacyDto dto = new PharmacyDto();
-							dto.setName(pharmacy.getName());
-							dto.setCashBalance(pharmacy.getCashBalance());
+						pharmacy -> toPharmacyDtoWithMaskFilter(
+								pharmacy, minPrice, maxPrice, productCount, compareType)
+				)
+				.toList();
+	}
 
-							// 取得符合條件的口罩清單
-							List<MaskVo> maskVoList = pharmacy.getInventories()
-									.stream()
-									.filter(
-											inv -> {
-												BigDecimal price = inv.getMask().getPrice();
-												int quantity = inv.getQuantity();
+	private PharmacyDto toPharmacyDto(OpeningTime openingTime) {
+		Pharmacy pharmacy = openingTime.getPharmacy();
 
-												boolean priceInRange = price.compareTo(minPrice) >= 0 && price.compareTo(maxPrice) <= 0;
-												boolean quantityValid = (compareType == CompareType.GREATER)
-														? quantity >= productCount
-														: quantity < productCount;
+		List<MaskVo> maskVos = pharmacy.getInventories().stream()
+				.map(inventory -> {
+					MaskVo vo = new MaskVo();
+					vo.setName(inventory.getMask().getName());
+					vo.setPrice(inventory.getMask().getPrice());
+					vo.setPackSize(inventory.getQuantity());
+					return vo;
+				}).toList();
 
-												return priceInRange && quantityValid;
-											}
-									)
-									.map(
-											masks -> {
-												MaskVo vo = new MaskVo();
-												vo.setName(masks.getMask().getName());
-												vo.setPrice(masks.getMask().getPrice());
-												vo.setPackSize(masks.getQuantity());
-												return vo;
-											}
-									).toList();
-							dto.setMasks(maskVoList);
-
-							// 取得營業時間
-							List<OpeningTimeVo> openingTimeVos =
-									pharmacy.getOpeningTimes()
-											.stream()
-											.map(
-													open -> new OpeningTimeVo(
-															open.getWeekDay(),
-															open.getStartTime().toLocalTime(),
-															open.getEndTime().toLocalTime())
-											)
-											.toList();
-							dto.setOpeningHours(openingTimeVos);
-
-							return dto;
-						}
+		List<OpeningTimeVo> openingTimeVos = pharmacy.getOpeningTimes().stream()
+				.map(open -> new OpeningTimeVo(
+						open.getWeekDay(),
+						open.getStartTime().toLocalTime(),
+						open.getEndTime().toLocalTime())
 				).toList();
+
+		PharmacyDto dto = new PharmacyDto();
+		dto.setName(pharmacy.getName());
+		dto.setCashBalance(pharmacy.getCashBalance());
+		dto.setMasks(maskVos);
+		dto.setOpeningHours(openingTimeVos);
+		return dto;
+	}
+
+	private PharmacyDto toPharmacyDtoWithMaskFilter(
+			Pharmacy pharmacy,
+			BigDecimal minPrice,
+			BigDecimal maxPrice,
+			int productCount,
+			CompareType compareType
+	) {
+		List<MaskVo> maskVoList = pharmacy.getInventories().stream()
+				.filter(inv -> {
+					BigDecimal price = inv.getMask().getPrice();
+					int quantity = inv.getQuantity();
+
+					boolean priceInRange = price.compareTo(minPrice) >= 0 && price.compareTo(maxPrice) <= 0;
+					boolean quantityValid = (compareType == CompareType.GREATER)
+							? quantity >= productCount
+							: quantity < productCount;
+
+					return priceInRange && quantityValid;
+				})
+				.map(inv -> {
+					MaskVo vo = new MaskVo();
+					vo.setName(inv.getMask().getName());
+					vo.setPrice(inv.getMask().getPrice());
+					vo.setPackSize(inv.getQuantity());
+					return vo;
+				})
+				.toList();
+
+		List<OpeningTimeVo> openingTimeVos = pharmacy.getOpeningTimes().stream()
+				.map(open -> new OpeningTimeVo(
+						open.getWeekDay(),
+						open.getStartTime().toLocalTime(),
+						open.getEndTime().toLocalTime()
+				)).toList();
+
+		PharmacyDto dto = new PharmacyDto();
+		dto.setName(pharmacy.getName());
+		dto.setCashBalance(pharmacy.getCashBalance());
+		dto.setMasks(maskVoList);
+		dto.setOpeningHours(openingTimeVos);
+		return dto;
 	}
 
 }

@@ -120,13 +120,13 @@ public class PharmacyController {
 	)
 	@GetMapping("/filter")
 	public ResponseEntity<List<PharmacyDto>> filterPharmacies(
-			@Parameter(description = "Minimum mask price",example = "10.99")
+			@Parameter(description = "Minimum mask price", example = "10.99")
 			@RequestParam BigDecimal minPrice,
 
-			@Parameter(description = "Maximum mask price",example = "15.01")
+			@Parameter(description = "Maximum mask price", example = "15.01")
 			@RequestParam BigDecimal maxPrice,
 
-			@Parameter(description = "Mask products count threshold must be positive",example ="3")
+			@Parameter(description = "Mask products count threshold must be positive", example = "3")
 			@RequestParam int productCount,
 
 			@Parameter(description = "Comparison type: GREATER or LESS")
