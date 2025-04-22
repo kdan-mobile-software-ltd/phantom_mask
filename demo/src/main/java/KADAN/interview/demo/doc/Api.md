@@ -11,6 +11,7 @@
     * [7. Filter Pharmacies by Mask Price and Product Count](#7-filter-pharmacies-by-mask-price-and-product-count)
 * [🔍 Search API](#-search-api)
     * [8. Full-text Search for Pharmacy or Mask](#8-full-text-search-for-pharmacy-or-mask)
+* [⚠️ Common Error Response Format](#-common-error-response-format)
 <!-- TOC -->
 #  ⭐ Mask API
 
@@ -316,4 +317,34 @@ Returns a list of matched search results.
   },
   ...
 ]
+```
+---
+
+# ⚠️ Common Error Response Format
+
+❌ `400 Bad Request` – Invalid input
+
+```json
+{
+  "message": "Invalid input",
+  "errorCode": "BAD_REQUEST"
+}
+```
+
+❌ `409 Conflict` – Insufficient balance or business conflict
+
+```json
+{
+  "message": "Insufficient balance",
+  "errorCode": "CONFLICT"
+}
+```
+
+❌ `500 Internal Server Error`
+
+```json
+{
+  "message": "Internal server error",
+  "errorCode": "SERVER_ERROR"
+}
 ```
