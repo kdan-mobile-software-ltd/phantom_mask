@@ -75,7 +75,7 @@ public class UserController {
 			@Parameter(description = "End date (yyyy-MM-dd)")
 			@RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date endDate,
 
-			@Parameter(description = "Number of top users to return (default = 5)")
+			@Parameter(description = "Number of top users to return")
 			@RequestParam(defaultValue = "5") int top
 	) {
 		if (top <= 0) {
