@@ -1,9 +1,12 @@
 package KADAN.interview.demo.controller;
 
+import KADAN.interview.demo.converter.dto.SearchResultDto;
+import KADAN.interview.demo.enumType.SearchTarget;
 import KADAN.interview.demo.exception.ErrorResponse;
 import KADAN.interview.demo.service.SearchService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
+import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -15,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Map;
 
 @Tag(name = "Search", description = "Full-text search for pharmacies or masks")
 @RestController
@@ -31,10 +35,10 @@ public class SearchController {
 			summary = "Full-text search for pharmacy or mask",
 			description = "Searches for pharmacies or masks by keyword using MySQL full-text search. Set `type=true` to search pharmacy, or `type=false` for masks.",
 			responses = {
-					@ApiResponse(
-							responseCode = "200",
-							description = "Search result returned successfully",
-							content = @Content(mediaType = "application/json")),
+					@ApiResponse(responseCode = "200", description = "搜尋結果",
+							content = @Content(array = @ArraySchema(
+									schema = @Schema(implementation = SearchResultDto.class))))
+					,
 					@ApiResponse(
 							responseCode = "400",
 							description = "Invalid input",
@@ -48,12 +52,13 @@ public class SearchController {
 			}
 	)
 	@PostMapping
-	public ResponseEntity<List<?>> search(
+	public ResponseEntity<List<Map<String, String>>> search(
 			@Parameter(description = "Keyword to search")
 			@RequestParam String keyword,
 
-			@Parameter(description = "true = search pharmacy, false = search mask")
-			@RequestParam(required = false) Boolean type
+			@Parameter(description = "搜尋目標：PHARMACY = 查詢藥局, MASK = 查詢口罩")
+			@RequestParam(required = false) SearchTarget type
+
 	) {
 		return ResponseEntity.ok(searchService.searchAll(keyword, type));
 	}
