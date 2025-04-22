@@ -50,7 +50,7 @@ public class PharmacyController {
 									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
-	@PostMapping("/queryOpeningHour")
+	@GetMapping("/queryOpeningHour")
 	public ResponseEntity<List<PharmacyDto>> getOpenPharmacies(
 			@Parameter(
 					description = "Day of the week. Acceptable values: MON, TUE, WED, THU, FRI, SAT, SUN",

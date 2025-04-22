@@ -12,10 +12,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Map;
@@ -51,7 +48,7 @@ public class SearchController {
 									schema = @Schema(implementation = ErrorResponse.class)))
 			}
 	)
-	@PostMapping
+	@GetMapping
 	public ResponseEntity<List<Map<String, String>>> search(
 			@Parameter(description = "Keyword to search")
 			@RequestParam String keyword,

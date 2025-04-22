@@ -1,4 +1,5 @@
 <!-- TOC -->
+
 * [⭐ Mask API](#-mask-api)
     * [1. Get Mask Transaction Summary](#1-get-mask-transaction-summary)
     * [2. Purchase Mask](#2-purchase-mask)
@@ -12,8 +13,10 @@
 * [🔍 Search API](#-search-api)
     * [8. Full-text Search for Pharmacy or Mask](#8-full-text-search-for-pharmacy-or-mask)
 * [⚠️ Common Error Response Format](#-common-error-response-format)
+
 <!-- TOC -->
-#  ⭐ Mask API
+
+# ⭐ Mask API
 
 **Base Path:** `/api/v1/mask`
 
@@ -29,10 +32,10 @@ Return total transaction amount and quantity for all masks within the specified 
 
 **Query Parameters**
 
-| Name       | Type   | Required | Description                          | Example      |
-|------------|--------|----------|--------------------------------------|--------------|
-| startDate  | `Date` | ✅        | Start date in `yyyy-MM-dd` format    | `2021-01-01` |
-| endDate    | `Date` | ✅        | End date in `yyyy-MM-dd` format      | `2021-01-31` |
+| Name      | Type   | Required | Description                       | Example      |
+|-----------|--------|----------|-----------------------------------|--------------|
+| startDate | `Date` | ✅        | Start date in `yyyy-MM-dd` format | `2021-01-01` |
+| endDate   | `Date` | ✅        | End date in `yyyy-MM-dd` format   | `2021-01-31` |
 
 **Response**
 
@@ -44,6 +47,7 @@ Return total transaction amount and quantity for all masks within the specified 
   "totalQuantity": 2147483647
 }
 ```
+
 ---
 
 ### 2. Purchase Mask
@@ -57,12 +61,12 @@ This operation updates user balance and records the transaction.
 
 **Request Body**
 
-| Field       | Type    | Required | Description                       | Example        |
-|-------------|---------|----------|-----------------------------------|----------------|
-| userId      | `Long`  | ✅        | ID of the user making the purchase | `1`            |
-| pharmacyId  | `Long`  | ✅        | ID of the pharmacy                 | `100`          |
-| maskName    | `String`| ✅        | Name of the mask                  | `"N95 Mask"`   |
-| quantity    | `int`   | ✅        | Quantity to purchase              | `5`            |
+| Field      | Type     | Required | Description                        | Example      |
+|------------|----------|----------|------------------------------------|--------------|
+| userId     | `Long`   | ✅        | ID of the user making the purchase | `1`          |
+| pharmacyId | `Long`   | ✅        | ID of the pharmacy                 | `100`        |
+| maskName   | `String` | ✅        | Name of the mask                   | `"N95 Mask"` |
+| quantity   | `int`    | ✅        | Quantity to purchase               | `5`          |
 
 **Sample Request**
 
@@ -93,6 +97,7 @@ Returns transaction result:
   "userBalanceAfter": 12345678.90
 }
 ```
+
 ---
 
 # 👤 User API
@@ -104,7 +109,7 @@ Returns transaction result:
 ### 3. Load Initial Data
 
 **Endpoint**  
-`GET /user/loadData`
+`POST /user/loadData`
 
 **Description**  
 Clears all existing records and loads new data into the database from the bundled JSON files.
@@ -129,11 +134,11 @@ Returns the top X users who have the highest total transaction amounts within th
 
 **Request Parameters**
 
-| Name       | Type     | Required | Description                                    | Example      |
-|------------|----------|----------|------------------------------------------------|--------------|
-| startDate  | `Date`   | ✅        | Start date in `yyyy-MM-dd` format              | `2021-01-01` |
-| endDate    | `Date`   | ✅        | End date in `yyyy-MM-dd` format                | `2021-01-31` |
-| top        | `int`    | ✅        | Number of top users to return (default is 5)   | `10`         |
+| Name      | Type   | Required | Description                                  | Example      |
+|-----------|--------|----------|----------------------------------------------|--------------|
+| startDate | `Date` | ✅        | Start date in `yyyy-MM-dd` format            | `2021-01-01` |
+| endDate   | `Date` | ✅        | End date in `yyyy-MM-dd` format              | `2021-01-31` |
+| top       | `int`  | ✅        | Number of top users to return (default is 5) | `10`         |
 
 **Response**
 
@@ -148,6 +153,7 @@ Returns the top X users who have the highest total transaction amounts within th
   ...
 ]
 ```
+
 ---
 
 # 🏪 Pharmacy API
@@ -159,17 +165,17 @@ Returns the top X users who have the highest total transaction amounts within th
 ### 5. Get Pharmacies Open at a Specific Time
 
 **Endpoint**  
-`POST /pharmacy/queryOpeningHour`
+`GET /pharmacy/queryOpeningHour`
 
 **Description**  
 Returns a list of pharmacies that are open at a specified time and day of the week.
 
 **Request Parameters**
 
-| Name     | Type     | Required | Description                                              | Example |
-|----------|----------|----------|----------------------------------------------------------|---------|
-| weekDay  | `Enum` | ✅        | Day of the week. One of `MON`, `TUE`, ..., `SUN`         | `MON`   |
-| time     | `String` | ✅        | Time in `HH:mm` format                                   | `08:00` |
+| Name    | Type     | Required | Description                                      | Example |
+|---------|----------|----------|--------------------------------------------------|---------|
+| weekDay | `Enum`   | ✅        | Day of the week. One of `MON`, `TUE`, ..., `SUN` | `MON`   |
+| time    | `String` | ✅        | Time in `HH:mm` format                           | `08:00` |
 
 **Response**
 
@@ -210,16 +216,16 @@ Returns a list of masks sold by a pharmacy, optionally sorted by name or price.
 
 **Path Parameter**
 
-| Name | Type   | Required | Description       | Example |
-|------|--------|----------|-------------------|---------|
-| id   | `Long` | ✅        | Pharmacy ID       | `101`   |
+| Name | Type   | Required | Description | Example |
+|------|--------|----------|-------------|---------|
+| id   | `Long` | ✅        | Pharmacy ID | `101`   |
 
 **Request Parameters**
 
-| Name       | Type          | Required | Description                      | Example |
-|------------|---------------|----------|----------------------------------|---------|
-| sortBy     | `Enum`   | ❌        | Sort by `NAME` or `PRICE`        | `NAME`  |
-| direction  | `Enum`| ❌       | Sort direction: `ASC` or `DESC`  | `ASC`   |
+| Name      | Type   | Required | Description                     | Example |
+|-----------|--------|----------|---------------------------------|---------|
+| sortBy    | `Enum` | ❌        | Sort by `NAME` or `PRICE`       | `NAME`  |
+| direction | `Enum` | ❌        | Sort direction: `ASC` or `DESC` | `ASC`   |
 
 **Response**
 
@@ -246,12 +252,12 @@ Returns a list of pharmacies that offer a certain number of mask products within
 
 **Request Parameters**
 
-| Name         | Type         | Required | Description                                               | Example   |
-|--------------|--------------|----------|-----------------------------------------------------------|-----------|
-| minPrice     | `BigDecimal` | ✅        | Minimum mask price                                        | `10.99`   |
-| maxPrice     | `BigDecimal` | ✅        | Maximum mask price                                        | `15.01`   |
-| productCount | `int`        | ✅        | Product count threshold (must be positive)                | `3`       |
-| compareType  | `Enum`       | ✅        | Comparison type: `GREATER` or `LESS`                      | `GREATER` |
+| Name         | Type         | Required | Description                                | Example   |
+|--------------|--------------|----------|--------------------------------------------|-----------|
+| minPrice     | `BigDecimal` | ✅        | Minimum mask price                         | `10.99`   |
+| maxPrice     | `BigDecimal` | ✅        | Maximum mask price                         | `15.01`   |
+| productCount | `int`        | ✅        | Product count threshold (must be positive) | `3`       |
+| compareType  | `Enum`       | ✅        | Comparison type: `GREATER` or `LESS`       | `GREATER` |
 
 **Response**
 
@@ -291,7 +297,7 @@ Returns a list of pharmacies that offer a certain number of mask products within
 ### 8. Full-text Search for Pharmacy or Mask
 
 **Endpoint**  
-`POST /search`
+`GET /search`
 
 **Description**  
 Searches for pharmacies or masks using a keyword.  
@@ -299,10 +305,10 @@ This uses MySQL full-text search and supports specifying the search type.
 
 **Query Parameters**
 
-| Name     | Type          | Required | Description                                                              | Example    |
-|----------|---------------|----------|--------------------------------------------------------------------------|------------|
-| keyword  | `String`      | ✅        | Keyword to search                                                        | `"N95"`    |
-| type     | `Enum`| ❌        | Optional. Search target: `PHARMACY` or `MASK`. Default is searching both | `MASK`     |
+| Name    | Type     | Required | Description                                                              | Example |
+|---------|----------|----------|--------------------------------------------------------------------------|---------|
+| keyword | `String` | ✅        | Keyword to search                                                        | `"N95"` |
+| type    | `Enum`   | ❌        | Optional. Search target: `PHARMACY` or `MASK`. Default is searching both | `MASK`  |
 
 **Response**
 
@@ -318,6 +324,7 @@ Returns a list of matched search results.
   ...
 ]
 ```
+
 ---
 
 # ⚠️ Common Error Response Format
