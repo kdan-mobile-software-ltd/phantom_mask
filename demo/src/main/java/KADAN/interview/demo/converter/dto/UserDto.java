@@ -11,6 +11,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 @Schema(description = "DTO for top user summary by total transaction amount")
 public class UserDto {
+	@Schema(description = "Unique identifier for the user")
+	private long id;
 
 	@Schema(description = "User's name", example = "Alice")
 	private String name;

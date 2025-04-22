@@ -12,6 +12,9 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Schema(description = "Mask's basic information")
 public class MaskDto {
+	@Schema(description = "Unique identifier for the mask")
+	private long id;
+
 	@Schema(description = "Name of the mask", example = "True Barrier (black) (10 per pack)")
 	private String name;
 

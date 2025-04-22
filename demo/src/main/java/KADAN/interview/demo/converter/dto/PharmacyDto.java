@@ -17,6 +17,8 @@ import java.util.List;
 @NoArgsConstructor
 @Schema(description = "Pharmacy's basic information")
 public class PharmacyDto {
+	@Schema(description = "Unique identifier for the pharmacy")
+	private long id;
 
 	@Schema(description = "Pharmacy name", example = "Carepoint")
 	private String name;

@@ -29,7 +29,7 @@ public interface TransactionHistoryRepository extends JpaRepository<TransactionH
 	                                            @Param("endDate") Date endDate);
 
 	@Query("""
-				SELECT new KADAN.interview.demo.converter.dto.UserDto(th.users.name, SUM(th.transactionAmount))
+				SELECT new KADAN.interview.demo.converter.dto.UserDto(th.users.id,th.users.name, SUM(th.transactionAmount))
 				FROM TransactionHistory th
 				WHERE th.transactionDate BETWEEN :startDate AND :endDate
 				GROUP BY th.users.id, th.users.name

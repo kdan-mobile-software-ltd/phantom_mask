@@ -52,6 +52,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 				.map(
 						inventory -> {
 							MaskDto dto = new MaskDto();
+							dto.setId(inventory.getMask().getId());
 							dto.setName(inventory.getMask().getName());
 							dto.setPrice(inventory.getMask().getPrice());
 							dto.setPackSize(inventory.getQuantity());
@@ -112,6 +113,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 				).toList();
 
 		PharmacyDto dto = new PharmacyDto();
+		dto.setId(pharmacy.getId());
 		dto.setName(pharmacy.getName());
 		dto.setCashBalance(pharmacy.getCashBalance());
 		dto.setMasks(maskVos);
@@ -155,6 +157,7 @@ public class PharmacyServiceImpl implements PharmacyService {
 				)).toList();
 
 		PharmacyDto dto = new PharmacyDto();
+		dto.setId(pharmacy.getId());
 		dto.setName(pharmacy.getName());
 		dto.setCashBalance(pharmacy.getCashBalance());
 		dto.setMasks(maskVoList);
