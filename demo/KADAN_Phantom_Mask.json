@@ -1,0 +1,292 @@
+{
+	"info": {
+		"_postman_id": "35a554f8-0430-4284-9b3b-e5ecbe7cd504",
+		"name": "KADAN_Phantom_Mask",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "29791376"
+	},
+	"item": [
+		{
+			"name": "user_api",
+			"item": [
+				{
+					"name": "getTopUsers",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/user/getTopUsers?startDate=2021-01-04&endDate=2021-01-05&top=5",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"user",
+								"getTopUsers"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2021-01-04",
+									"description": "yyyy-MM-dd"
+								},
+								{
+									"key": "endDate",
+									"value": "2021-01-05",
+									"description": "yyyy-MM-dd"
+								},
+								{
+									"key": "top",
+									"value": "5",
+									"description": "前 X 名"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "loadData",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/user/loadData",
+						"description": "初始化資料"
+					},
+					"response": []
+				}
+			],
+			"description": "Operations related to users and their transactions"
+		},
+		{
+			"name": "search_api",
+			"item": [
+				{
+					"name": "search",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 543,\r\n  \"pharmacyId\": 543,\r\n  \"maskName\": \"Second Smile (blue) (10 per pack)\",\r\n  \"quantity\": 3\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/api/v1/search?keyword=bar&type=MASK",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"search"
+							],
+							"query": [
+								{
+									"key": "keyword",
+									"value": "bar",
+									"description": "關鍵字"
+								},
+								{
+									"key": "type",
+									"value": "MASK",
+									"description": "ENUM"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "pharmacy_api",
+			"item": [
+				{
+					"name": "queryOpeningHour",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/pharmacy/queryOpeningHour?weekDay=WED&time=10:00",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pharmacy",
+								"queryOpeningHour"
+							],
+							"query": [
+								{
+									"key": "weekDay",
+									"value": "WED",
+									"description": "星期 ENUM"
+								},
+								{
+									"key": "time",
+									"value": "10:00",
+									"description": "HH:mm"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "filterPharmacies",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/pharmacy/filter?minPrice=10.99&maxPrice=15.01&productCount=3&compareType=GREATER",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pharmacy",
+								"filter"
+							],
+							"query": [
+								{
+									"key": "minPrice",
+									"value": "10.99",
+									"description": "最小金額"
+								},
+								{
+									"key": "maxPrice",
+									"value": "15.01",
+									"description": "最大金額"
+								},
+								{
+									"key": "productCount",
+									"value": "3",
+									"description": "數量"
+								},
+								{
+									"key": "compareType",
+									"value": "GREATER",
+									"description": "比較類型 GREATER 或 LESS"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "queryMasks",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/pharmacy/queryMasks/{{id}}?sortBy=NAME&direction=ASC",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"pharmacy",
+								"queryMasks",
+								"{{id}}"
+							],
+							"query": [
+								{
+									"key": "sortBy",
+									"value": "NAME",
+									"description": "依 NAME 或 PRICE 排序"
+								},
+								{
+									"key": "direction",
+									"value": "ASC",
+									"description": "依 ASC 或 DESC 排序"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Operations for querying pharmacy business hours and mask sales"
+		},
+		{
+			"name": "mask_api",
+			"item": [
+				{
+					"name": "purchase",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"userId\": 1,\r\n  \"pharmacyId\": 2,\r\n  \"maskName\": \"Masquerade (blue) (6 per pack)\",\r\n  \"quantity\": 2\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/mask/purchase"
+					},
+					"response": []
+				},
+				{
+					"name": "getMaskTransactionSummary",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/v1/mask/getMaskTransactionSummary?startDate=2021-01-01&endDate=2021-01-31",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"v1",
+								"mask",
+								"getMaskTransactionSummary"
+							],
+							"query": [
+								{
+									"key": "startDate",
+									"value": "2021-01-01",
+									"description": "yyyy-MM-dd"
+								},
+								{
+									"key": "endDate",
+									"value": "2021-01-31",
+									"description": "yyyy-MM-dd"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "mask 路徑底下的 API"
+		}
+	]
+}
