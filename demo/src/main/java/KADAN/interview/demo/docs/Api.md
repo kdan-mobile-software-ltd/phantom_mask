@@ -134,11 +134,11 @@ Returns the top X users who have the highest total transaction amounts within th
 
 **Request Parameters**
 
-| Name      | Type   | Required | Description                                  | Example      |
-|-----------|--------|----------|----------------------------------------------|--------------|
-| startDate | `Date` | ✅        | Start date in `yyyy-MM-dd` format            | `2021-01-01` |
-| endDate   | `Date` | ✅        | End date in `yyyy-MM-dd` format              | `2021-01-31` |
-| top       | `int`  | ✅        | Number of top users to return (default is 5) | `10`         |
+| Name      | Type   | Required | Description                       | Example      |
+|-----------|--------|----------|-----------------------------------|--------------|
+| startDate | `Date` | ✅        | Start date in `yyyy-MM-dd` format | `2021-01-01` |
+| endDate   | `Date` | ✅        | End date in `yyyy-MM-dd` format   | `2021-01-31` |
+| top       | `int`  | ✅        | Number of top users to return     | `10`         |
 
 **Response**
 
@@ -176,6 +176,18 @@ Returns a list of pharmacies that are open at a specified time and day of the we
 |---------|----------|----------|--------------------------------------------------|---------|
 | weekDay | `Enum`   | ✅        | Day of the week. One of `MON`, `TUE`, ..., `SUN` | `MON`   |
 | time    | `String` | ✅        | Time in `HH:mm` format                           | `08:00` |
+
+**Enum: WeekDay**
+
+| 值   | 說明（label） |
+|------|----------------|
+| MON  | Mon            |
+| TUE  | Tue            |
+| WED  | Wed            |
+| THU  | Thu            |
+| FRI  | Fri            |
+| SAT  | Sat            |
+| SUN  | Sun            |
 
 **Response**
 
@@ -227,6 +239,20 @@ Returns a list of masks sold by a pharmacy, optionally sorted by name or price.
 | sortBy    | `Enum` | ❌        | Sort by `NAME` or `PRICE`       | `NAME`  |
 | direction | `Enum` | ❌        | Sort direction: `ASC` or `DESC` | `ASC`   |
 
+**Enum: SortField**
+
+| 值     | 說明      |
+|--------|-----------|
+| NAME   | 依口罩名稱排序 |
+| PRICE  | 依口罩價格排序 |
+
+**Enum: SortDirection**
+
+| 值    | 說明         |
+|-------|--------------|
+| ASC   | 遞增（小 → 大） |
+| DESC  | 遞減（大 → 小） |
+
 **Response**
 
 ✅ `200 OK`
@@ -258,6 +284,13 @@ Returns a list of pharmacies that offer a certain number of mask products within
 | maxPrice     | `BigDecimal` | ✅        | Maximum mask price                         | `15.01`   |
 | productCount | `int`        | ✅        | Product count threshold (must be positive) | `3`       |
 | compareType  | `Enum`       | ✅        | Comparison type: `GREATER` or `LESS`       | `GREATER` |
+
+**Enum: CompareType**
+
+| 值       | 說明              |
+|----------|-------------------|
+| GREATER  | 大於等於指定數量   |
+| LESS     | 小於指定數量       |
 
 **Response**
 
@@ -309,6 +342,13 @@ This uses MySQL full-text search and supports specifying the search type.
 |---------|----------|----------|--------------------------------------------------------------------------|---------|
 | keyword | `String` | ✅        | Keyword to search                                                        | `"N95"` |
 | type    | `Enum`   | ❌        | Optional. Search target: `PHARMACY` or `MASK`. Default is searching both | `MASK`  |
+
+**Enum: SearchTarget**
+
+| 值       | 說明         |
+|----------|--------------|
+| PHARMACY | 搜尋藥局名稱 |
+| MASK     | 搜尋口罩名稱 |
 
 **Response**
 
