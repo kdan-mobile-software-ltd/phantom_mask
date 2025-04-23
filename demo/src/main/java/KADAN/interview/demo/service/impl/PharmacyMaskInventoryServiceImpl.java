@@ -1,14 +1,13 @@
 package KADAN.interview.demo.service.impl;
 
-import KADAN.interview.demo.entity.Mask_;
-import KADAN.interview.demo.entity.Pharmacy;
-import KADAN.interview.demo.entity.PharmacyMaskInventory;
-import KADAN.interview.demo.entity.PharmacyMaskInventory_;
+import KADAN.interview.demo.entity.*;
 import KADAN.interview.demo.enumType.SortDirection;
 import KADAN.interview.demo.enumType.SortField;
 import KADAN.interview.demo.repository.PharmacyMaskInventoryRepository;
 import KADAN.interview.demo.service.PharmacyMaskInventoryService;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.persistence.criteria.Join;
+import jakarta.persistence.criteria.JoinType;
 import jakarta.persistence.criteria.Order;
 import jakarta.persistence.criteria.Path;
 import lombok.RequiredArgsConstructor;
@@ -45,6 +44,9 @@ public class PharmacyMaskInventoryServiceImpl implements PharmacyMaskInventorySe
 				.findAll(
 						(root, criteriaQuery, criteriaBuilder) ->
 						{
+							// 避免 N+1
+							root.fetch(PharmacyMaskInventory_.mask, JoinType.LEFT);
+
 							// 預設以 name 排序
 							SortField sortField = sortBy != null ? sortBy : SortField.NAME;
 							// 預設 asc

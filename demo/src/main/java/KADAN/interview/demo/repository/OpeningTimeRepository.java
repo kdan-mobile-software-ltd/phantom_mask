@@ -13,13 +13,14 @@ import java.util.List;
 @Repository
 public interface OpeningTimeRepository extends JpaRepository<OpeningTime, Long>, JpaSpecificationExecutor<OpeningTime> {
 	@Query("""
-			    SELECT ot FROM OpeningTime ot
-			    JOIN FETCH ot.pharmacy p
-			    JOIN FETCH p.inventories i
-			    JOIN FETCH i.mask
-			    WHERE ot.weekDay = :weekDay
-			    AND ot.startTime <= :queryTime
-			    AND ot.endTime >= :queryTime
+			   SELECT DISTINCT ot FROM OpeningTime ot
+			            JOIN FETCH ot.pharmacy p
+			            JOIN FETCH p.openingTimes
+			            JOIN FETCH p.inventories i
+			            JOIN FETCH i.mask
+			            WHERE ot.weekDay = :weekDay
+			            AND ot.startTime <= :queryTime
+			            AND ot.endTime >= :queryTime
 			""")
 	List<OpeningTime> findOpenPharmacies(@Param("weekDay") String weekDay, @Param("queryTime") Time time);
 }

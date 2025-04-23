@@ -16,6 +16,7 @@ import KADAN.interview.demo.service.PharmacyService;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
+import jakarta.persistence.criteria.Path;
 import jakarta.persistence.criteria.Predicate;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,6 +24,8 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.sql.Time;
 import java.util.List;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -70,7 +73,15 @@ public class PharmacyServiceImpl implements PharmacyService {
 		List<Pharmacy> filteredPharmacies =
 				pharmacyRepository.findAll(
 						(root, criteriaQuery, criteriaBuilder) -> {
+							// 避免N+1
+							root
+									.fetch(Pharmacy_.inventories, JoinType.LEFT)
+									.fetch(PharmacyMaskInventory_.mask, JoinType.LEFT);
+							root.fetch(Pharmacy_.openingTimes, JoinType.LEFT);
+
+							// 避免 JOIN 重複資料
 							criteriaQuery.distinct(true);
+
 							Join<Pharmacy, PharmacyMaskInventory> inventoryJoin = root.join(Pharmacy_.inventories, JoinType.LEFT);
 							Join<PharmacyMaskInventory, Mask> maskJoin = inventoryJoin.join(PharmacyMaskInventory_.mask);
 
@@ -105,12 +116,13 @@ public class PharmacyServiceImpl implements PharmacyService {
 					return vo;
 				}).toList();
 
-		List<OpeningTimeVo> openingTimeVos = pharmacy.getOpeningTimes().stream()
+		Set<OpeningTimeVo> openingTimeVos = pharmacy.getOpeningTimes().stream()
 				.map(open -> new OpeningTimeVo(
 						open.getWeekDay(),
 						open.getStartTime().toLocalTime(),
 						open.getEndTime().toLocalTime())
-				).toList();
+				)
+				.collect(Collectors.toSet());
 
 		PharmacyDto dto = new PharmacyDto();
 		dto.setId(pharmacy.getId());
@@ -149,12 +161,13 @@ public class PharmacyServiceImpl implements PharmacyService {
 				})
 				.toList();
 
-		List<OpeningTimeVo> openingTimeVos = pharmacy.getOpeningTimes().stream()
+		Set<OpeningTimeVo> openingTimeVos = pharmacy.getOpeningTimes().stream()
 				.map(open -> new OpeningTimeVo(
 						open.getWeekDay(),
 						open.getStartTime().toLocalTime(),
 						open.getEndTime().toLocalTime()
-				)).toList();
+				))
+				.collect(Collectors.toSet());
 
 		PharmacyDto dto = new PharmacyDto();
 		dto.setId(pharmacy.getId());
@@ -163,5 +176,39 @@ public class PharmacyServiceImpl implements PharmacyService {
 		dto.setMasks(maskVoList);
 		dto.setOpeningHours(openingTimeVos);
 		return dto;
+	}
+
+	private List<PharmacyMaskInventory> findAll(Pharmacy pharmacy, SortField sortBy, SortDirection direction) {
+		return pharmacyRepository.findAll(
+						(root, criteriaQuery, criteriaBuilder) -> {
+							// 避免 N+1
+							root
+									.fetch(Pharmacy_.inventories, JoinType.LEFT)
+									.fetch(PharmacyMaskInventory_.mask, JoinType.LEFT);
+
+//					root
+//							.join(Pharmacy_.inventories, JoinType.LEFT)
+//							.join(PharmacyMaskInventory_.mask, JoinType.LEFT);
+							Join<Pharmacy, PharmacyMaskInventory> inventoryJoin = root.join(Pharmacy_.inventories, JoinType.LEFT);
+							Join<PharmacyMaskInventory, Mask> maskJoin = inventoryJoin.join(PharmacyMaskInventory_.mask, JoinType.LEFT);
+
+							Path<?> sortField;
+							switch (sortBy) {
+								case NAME -> sortField = maskJoin.get(Mask_.name);
+								case PRICE -> sortField = maskJoin.get(Mask_.price);
+								default -> throw new IllegalArgumentException("Unsupported sort field");
+							}
+							criteriaQuery.distinct(true);
+							criteriaQuery.orderBy(
+									direction == SortDirection.ASC ? criteriaBuilder.asc(sortField) : criteriaBuilder.desc(sortField)
+							);
+							return criteriaQuery.getRestriction();
+						}
+				)
+				.stream()
+				.flatMap(
+						ph -> ph.getInventories().stream()
+				)
+				.toList();
 	}
 }

@@ -9,6 +9,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Getter
@@ -32,7 +33,7 @@ public class Pharmacy {
 	private List<PharmacyMaskInventory> inventories = new ArrayList<>();
 
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<OpeningTime> openingTimes;
+	private Set<OpeningTime> openingTimes;
 
 	@OneToMany(mappedBy = "pharmacy", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<TransactionHistory> transactions;

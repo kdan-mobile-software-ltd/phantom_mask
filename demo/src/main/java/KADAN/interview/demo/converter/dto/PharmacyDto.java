@@ -11,6 +11,7 @@ import lombok.Setter;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -36,5 +37,5 @@ public class PharmacyDto {
 			schema = @Schema(implementation = OpeningTimeVo.class),
 			arraySchema = @Schema(description = "Pharmacy's opening hours by weekday")
 	)
-	private List<OpeningTimeVo> openingHours = new ArrayList<>();
+	private Set<OpeningTimeVo> openingHours;
 }
